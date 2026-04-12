@@ -1,0 +1,447 @@
+/* Global Styles & Design System */
+:root {
+  font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: #CCD6F6;
+  background-color: #020C1B; /* Very deep professional navy */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* HSL Color Palette - Obsidian & Gold Theme */
+  --primary: 217 91% 60%; /* Professional Blue */
+  --primary-foreground: 210 40% 98%;
+  
+  --secondary: 222 47% 7%; /* Darker background */
+  --secondary-foreground: 210 40% 98%;
+  
+  --accent: 45 100% 58%; /* Gold accent */
+  --accent-foreground: 222 47% 11%;
+  
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+  
+  --muted: 217 33% 20%;
+  --muted-foreground: 215 20% 65%;
+  
+  --popover: 222 47% 11%;
+  --popover-foreground: 215 20% 65%;
+  
+  --background: 222 47% 6%;
+  --foreground: 213 27% 84%;
+  
+  --card: 222 47% 12%;
+  --card-foreground: 213 27% 84%;
+  
+  --border: 217 33% 17%;
+  --input: 217 33% 17%;
+  --ring: 45 100% 58%;
+
+  --radius: 0.75rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #020C1B;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(100, 255, 218, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(10, 25, 47, 0.5) 0%, transparent 50%);
+  color: hsl(var(--foreground));
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Typography Utilities */
+h1, h2, h3, h4 {
+  font-family: 'Outfit', sans-serif;
+  color: #E6F1FF;
+  letter-spacing: -0.02em;
+}
+
+.text-gold {
+  color: hsl(var(--accent));
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #E6F1FF 0%, #CCD6F6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphism Classes */
+.glass {
+  background: rgba(17, 34, 64, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-pill {
+  background: rgba(100, 255, 218, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  border: 1px solid rgba(100, 255, 218, 0.2);
+  color: #64FFDA;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+/* Button & UI Components */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: none;
+  gap: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.btn-primary {
+  background-color: hsl(var(--accent));
+  color: #020C1B;
+  box-shadow: 0 4px 14px 0 rgba(255, 226, 89, 0.39);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 226, 89, 0.5);
+  filter: brightness(1.1);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid hsl(var(--accent));
+  color: hsl(var(--accent));
+}
+
+.btn-outline:hover {
+  background-color: rgba(255, 226, 89, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Sections & Layout */
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.hero {
+  padding: 8rem 0 4rem;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 4.5rem;
+  line-height: 1;
+  margin-bottom: 2rem;
+  font-weight: 800;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  color: #8892B0;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  line-height: 1.4;
+}
+
+/* Quiz UI Components */
+.quiz-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 3rem;
+  border-radius: 1.5rem;
+}
+
+.quiz-progress {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  margin-bottom: 3rem;
+  overflow: hidden;
+}
+
+.quiz-progress-bar {
+  height: 100%;
+  background: hsl(var(--accent));
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+.quiz-question {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #E6F1FF;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.quiz-option {
+  padding: 1.5rem;
+  background: rgba(17, 34, 64, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: left;
+}
+
+.quiz-option:hover {
+  background: rgba(255, 226, 89, 0.05);
+  border-color: hsl(var(--accent));
+  transform: translateX(10px);
+}
+
+.quiz-option.selected {
+  background: rgba(255, 226, 89, 0.1);
+  border-color: hsl(var(--accent));
+}
+
+/* Results Page Specifics */
+.results-header {
+  padding: 6rem 0 3rem;
+  text-align: center;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  background: #000;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 3rem 0;
+}
+
+
+/* Calculator UI Components */
+.calculator-section {
+  max-width: 900px;
+  margin: 4rem auto;
+  text-align: center;
+}
+
+.calc-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.calc-tab {
+  padding: 0.75rem 1.5rem;
+  background: rgba(17, 34, 64, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  color: #8892B0;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.calc-tab.active {
+  background: hsl(var(--accent));
+  color: #020C1B;
+  border-color: hsl(var(--accent));
+  font-weight: 700;
+}
+
+.calc-card {
+  text-align: left;
+  padding: 3rem;
+  min-height: 500px;
+}
+
+.calc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 4rem;
+}
+
+.input-group {
+  margin-bottom: 2rem;
+}
+
+.input-label {
+  display: block;
+  font-size: 0.9rem;
+  color: #8892B0;
+  margin-bottom: 0.75rem;
+}
+
+.input-field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-symbol {
+  position: absolute;
+  left: 1rem;
+  color: hsl(var(--accent));
+  font-weight: 700;
+  z-index: 5;
+}
+
+.input-element {
+  width: 100%;
+  padding: 1rem;
+  padding-left: 2rem;
+  background: rgba(2, 12, 27, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #E6F1FF;
+  font-size: 1.25rem;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+}
+
+.select-element {
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23CCD6F6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 3rem;
+}
+
+.result-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.result-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.result-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #8892B0;
+  margin-bottom: 0.5rem;
+}
+
+.result-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  font-family: 'Outfit', sans-serif;
+}
+
+.value-red { color: #F44336; }
+.value-green { color: #4CAF50; }
+.value-gold { color: hsl(var(--accent)); }
+
+/* Bar Chart */
+.bar-chart-container {
+  margin-top: 3rem;
+  width: 100%;
+}
+
+.bar-chart-label {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  color: #CCD6F6;
+}
+
+.bar-chart {
+  height: 40px;
+  width: 100%;
+  background: #233554;
+  border-radius: 6px;
+  display: flex;
+  overflow: hidden;
+}
+
+.bar-segment {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: white;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bar-you { background: #55A677; }
+.bar-irs { background: #B14A4A; }
+
+.calc-footer-text {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: #8892B0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.75rem;
+  }
+  .hero p {
+    font-size: 1.1rem;
+  }
+  .quiz-container {
+    padding: 1.5rem;
+  }
+  .quiz-question {
+    font-size: 1.5rem;
+  }
+  .calc-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .calc-card {
+    padding: 1.5rem;
+  }
+}
+
+
