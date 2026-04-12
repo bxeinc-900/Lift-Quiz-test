@@ -126,13 +126,18 @@ function renderHero() {
       <button class="btn btn-outline">LEARN THE METHOD</button>
     </div>
   `
-  section.querySelector('#start-quiz')?.addEventListener('click', () => {
-    console.log('Transitioning to quiz...');
-    currentState = 'quiz';
-    render();
-  })
   return section
 }
+
+// Global Delegated Listener for Start Quiz
+document.addEventListener('click', (e) => {
+  const target = (e.target as HTMLElement).closest('#start-quiz')
+  if (target) {
+    console.log('Global delegated click: Start Quiz')
+    currentState = 'quiz'
+    render()
+  }
+})
 
 function renderQuiz() {
   const q = questions[currentQuestionIndex]
