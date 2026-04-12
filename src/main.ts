@@ -62,6 +62,53 @@ function render() {
     </div>
   `
   app.appendChild(footer)
+
+  // Attach Header CTA Listener
+  header.querySelector('.btn-outline')?.addEventListener('click', openBookingModal)
+
+  // Add Modal to page if not present
+  if (!document.querySelector('.modal-overlay')) {
+    document.body.appendChild(renderModal())
+  }
+}
+
+function openBookingModal() {
+  const modal = document.querySelector('.modal-overlay')
+  if (modal) modal.classList.add('active')
+  // Ensure the iframe fits correctly
+  const iframe = document.querySelector('.modal-overlay iframe') as HTMLIFrameElement
+  if (iframe) {
+    iframe.src = iframe.src // Refresh if needed for resizing
+  }
+}
+
+function closeBookingModal() {
+  const modal = document.querySelector('.modal-overlay')
+  if (modal) modal.classList.remove('active')
+}
+
+function renderModal() {
+  const div = document.createElement('div')
+  div.className = 'modal-overlay'
+  div.innerHTML = `
+    <div class="modal-content glass">
+      <button class="modal-close">&times;</button>
+      <div class="modal-header">
+        <h2 class="text-gold" style="font-size: 1.75rem; margin-bottom: 0.5rem;">Secure Your Strategy Session</h2>
+        <p style="color: #8892B0; font-size: 0.9rem;">Select an available time for your forensic analysis below.</p>
+      </div>
+      <div class="modal-body">
+        <iframe src="https://links.wealthvids.com/widget/booking/LwAMMZIaCleIBD0dAVLC" style="width: 100%; height: 700px; border:none; overflow: auto;" id="LwAMMZIaCleIBD0dAVLC_1776035780550"></iframe>
+      </div>
+    </div>
+  `
+  
+  div.querySelector('.modal-close')?.addEventListener('click', closeBookingModal)
+  div.addEventListener('click', (e) => {
+    if (e.target === div) closeBookingModal()
+  })
+  
+  return div
 }
 
 function renderHero() {
@@ -289,6 +336,9 @@ function renderResults() {
       }
     })
   })
+
+  // Attach Result CTA Listener
+  section.querySelector('.btn-primary')?.addEventListener('click', openBookingModal)
 
   // Initial attachment
   const calcCard = section.querySelector('.calc-card')
