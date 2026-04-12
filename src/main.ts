@@ -66,30 +66,108 @@ function render() {
   // Attach Header CTA Listener
   header.querySelector('.btn-outline')?.addEventListener('click', openBookingModal)
 
-  // Add Modal to page if not present
-  if (!document.querySelector('.modal-overlay')) {
-    document.body.appendChild(renderModal())
+  // Attach Learn Method Listener
+  if (currentState === 'hero') {
+    main.querySelector('#learn-method')?.addEventListener('click', openMethodModal)
+  }
+
+  // Add Modals to page if not present
+  if (!document.querySelector('#booking-modal')) {
+    document.body.appendChild(renderBookingModal())
+  }
+  if (!document.querySelector('#method-modal')) {
+    document.body.appendChild(renderMethodModal())
   }
 }
 
 function openBookingModal() {
-  const modal = document.querySelector('.modal-overlay')
+  const modal = document.querySelector('#booking-modal')
   if (modal) modal.classList.add('active')
   // Ensure the iframe fits correctly
-  const iframe = document.querySelector('.modal-overlay iframe') as HTMLIFrameElement
+  const iframe = document.querySelector('#booking-modal iframe') as HTMLIFrameElement
   if (iframe) {
     iframe.src = iframe.src // Refresh if needed for resizing
   }
 }
 
 function closeBookingModal() {
-  const modal = document.querySelector('.modal-overlay')
+  const modal = document.querySelector('#booking-modal')
   if (modal) modal.classList.remove('active')
 }
 
-function renderModal() {
+function openMethodModal() {
+  const modal = document.querySelector('#method-modal')
+  if (modal) modal.classList.add('active')
+}
+
+function closeMethodModal() {
+  const modal = document.querySelector('#method-modal')
+  if (modal) modal.classList.remove('active')
+}
+
+function renderMethodModal() {
   const div = document.createElement('div')
   div.className = 'modal-overlay'
+  div.id = 'method-modal'
+  div.innerHTML = `
+    <div class="modal-content glass" style="max-width: 700px;">
+      <button class="modal-close">&times;</button>
+      <div class="modal-header">
+        <div class="glass-pill" style="margin-bottom: 1rem;">STRATEGY BRIEFING</div>
+        <h2 class="text-gold" style="font-size: 2rem; margin-bottom: 0.5rem;">The LIFT Method</h2>
+        <p style="color: #8892B0; font-size: 1rem;">Surgically removing the 'Silent Partners' from your retirement.</p>
+      </div>
+      <div class="modal-body" style="min-height: auto; padding: 1rem 2rem 3rem;">
+        <div style="display: flex; flex-direction: column; gap: 2rem;">
+          
+          <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.05);">
+            <h3 style="color: #E6F1FF; font-size: 1.25rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+              <span class="text-gold" style="font-size: 1.5rem;">01.</span> The 401(k) "Tax Time Bomb"
+            </h3>
+            <p style="color: #8892B0; line-height: 1.6; font-size: 0.95rem;">
+              The government and Wall Street have a "silent partner" in your 401(k). Every dollar you withdraw is taxed as ordinary income—and the IRS gets to decide their share <span class="value-red" style="font-weight: 600;">after</span> you've already done the work.
+            </p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+             <div style="background: rgba(85, 166, 119, 0.05); border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(85, 166, 119, 0.1);">
+                <h4 class="value-green" style="margin-bottom: 0.5rem;">The Multiplier</h4>
+                <p style="font-size: 0.85rem; line-height: 1.5;">Using <strong>Leverage</strong> to multiply your capital's impact without taking on additional market risk.</p>
+             </div>
+             <div style="background: rgba(255, 226, 89, 0.05); border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(255, 226, 89, 0.1);">
+                <h4 class="text-gold" style="margin-bottom: 0.5rem;">Net Spendable</h4>
+                <p style="font-size: 0.85rem; line-height: 1.5;">Focusing entirely on <strong>Net Spendable Income</strong>—how much you keep after the IRS takes their cut.</p>
+             </div>
+          </div>
+
+          <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem;">
+            <p style="font-size: 1.1rem; color: #E6F1FF; margin-bottom: 1.5rem;">Ready to see your forensic report?</p>
+            <button id="modal-start-quiz" class="btn btn-primary" style="width: 100%;">START THE ASSESSMENT</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  `
+  
+  div.querySelector('.modal-close')?.addEventListener('click', closeMethodModal)
+  div.addEventListener('click', (e) => {
+    if (e.target === div) closeMethodModal()
+  })
+
+  div.querySelector('#modal-start-quiz')?.addEventListener('click', () => {
+    closeMethodModal()
+    currentState = 'quiz'
+    render()
+  })
+  
+  return div
+}
+
+function renderBookingModal() {
+  const div = document.createElement('div')
+  div.className = 'modal-overlay'
+  div.id = 'booking-modal'
   div.innerHTML = `
     <div class="modal-content glass">
       <button class="modal-close">&times;</button>
@@ -122,22 +200,19 @@ function renderHero() {
       Discover how the LIFT Method surgically removes market and tax risk to protect your net spendable income.
     </p>
     <div style="display: flex; gap: 1rem; justify-content: center;">
-      <button id="start-quiz" class="btn btn-primary">START ASSESSMENT</button>
-      <button class="btn btn-outline">LEARN THE METHOD</button>
+      <button id="start-quiz" class="btn btn-primary" onclick="window.startQuiz()">START ASSESSMENT</button>
+      <button id="learn-method" class="btn btn-outline">LEARN THE METHOD</button>
     </div>
   `
   return section
 }
 
-// Global Delegated Listener for Start Quiz
-document.addEventListener('click', (e) => {
-  const target = (e.target as HTMLElement).closest('#start-quiz')
-  if (target) {
-    console.log('Global delegated click: Start Quiz')
-    currentState = 'quiz'
-    render()
-  }
-})
+// @ts-ignore
+window.startQuiz = () => {
+  console.log('Global window.startQuiz triggered')
+  currentState = 'quiz'
+  render()
+}
 
 function renderQuiz() {
   const q = questions[currentQuestionIndex]
