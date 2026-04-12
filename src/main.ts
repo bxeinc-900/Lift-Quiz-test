@@ -127,8 +127,9 @@ function renderHero() {
     </div>
   `
   section.querySelector('#start-quiz')?.addEventListener('click', () => {
-    currentState = 'quiz'
-    render()
+    console.log('Transitioning to quiz...');
+    currentState = 'quiz';
+    render();
   })
   return section
 }
