@@ -80,7 +80,7 @@ function initModals() {
       </div>
     `
     document.body.appendChild(booking)
-    booking.addEventListener('click', (e) => { if (e.target === booking) window.closeModal('booking-modal') })
+    booking.addEventListener('click', (e) => { if (e.target === booking) (window as any).closeModal('booking-modal') })
   }
 
   if (!document.querySelector('#method-modal')) {
@@ -127,7 +127,7 @@ function initModals() {
       </div>
     `
     document.body.appendChild(method)
-    method.addEventListener('click', (e) => { if (e.target === method) window.closeModal('method-modal') })
+    method.addEventListener('click', (e) => { if (e.target === method) (window as any).closeModal('method-modal') })
   }
 }
 
