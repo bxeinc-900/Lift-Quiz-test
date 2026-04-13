@@ -35,7 +35,7 @@ export const questions: Question[] = [
   },
   {
     id: 4,
-    text: "Are you aware that IUL (Indexed Universal Life) policies can allow your money to earn market-linked growth while also being available as collateral for tax-free loans?",
+    text: "Are you aware that certain properly structured financial products can allow your money to earn market-linked growth while also being available as collateral for tax-free loans?",
     options: [
       { text: "Yes, and I already use this strategy", score: 1 },
       { text: "I've heard of it but don't fully understand how it works", score: 2 },
