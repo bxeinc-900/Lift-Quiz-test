@@ -114,7 +114,7 @@ function initModals() {
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
                <div style="background: rgba(85, 166, 119, 0.05); border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(85, 166, 119, 0.1);">
                   <h4 class="value-green" style="margin-bottom: 0.5rem;">Leverage</h4>
-                  <p style="font-size: 0.85rem; line-height: 1.5;">Using properly structured IUL policies to allow capital to earn index-linked interest while simultaneously serving as collateral for tax-free policy loans.</p>
+                  <p style="font-size: 0.85rem; line-height: 1.5;">Using properly structured financial products to allow capital to earn index-linked interest while simultaneously serving as collateral for tax-free loans.</p>
                </div>
                <div style="background: rgba(255, 226, 89, 0.05); border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(255, 226, 89, 0.1);">
                   <h4 class="text-gold" style="margin-bottom: 0.5rem;">Net Spendable Income</h4>
@@ -122,7 +122,7 @@ function initModals() {
                </div>
             </div>
             <div style="background: rgba(2, 12, 27, 0.5); border-radius: 8px; padding: 1rem 1.5rem; border: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; color: #495670; line-height: 1.5;">
-              <strong style="color: #8892B0;">Important Disclosure:</strong> IUL policies involve insurance charges, fees, and costs that reduce their value. Policy loans, if not repaid, can reduce the death benefit and may cause the policy to lapse. This is a general educational overview and not a recommendation for any specific product. Results vary based on individual circumstances, health status, and policy terms. Always consult a licensed, qualified financial professional before making any financial decisions.
+              <strong style="color: #8892B0;">Important Disclosure:</strong> Properly structured financial products involve charges, fees, and costs that reduce their value. Loans, if not repaid, may reduce the account value and could cause the product to lapse. This is a general educational overview and not a recommendation for any specific product. Results vary based on individual circumstances and product terms. Always consult a licensed, qualified financial professional before making any financial decisions.
             </div>
             <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem;">
               <p style="font-size: 1.1rem; color: #E6F1FF; margin-bottom: 1.5rem;">Take the assessment to see your personalized analysis.</p>
@@ -180,7 +180,7 @@ function render() {
       </p>
       <div class="footer-disclaimer">
         <p><strong>Educational Content Disclaimer:</strong> The information on this website is for educational and informational purposes only and does not constitute financial, tax, legal, or investment advice. Results shown in calculators are hypothetical illustrations only and do not represent actual past or future performance of any financial product or strategy. Individual results will vary based on many factors including age, health, tax situation, income, and market conditions.</p>
-        <p style="margin-top: 0.75rem;"><strong>IUL Disclosure:</strong> Indexed Universal Life (IUL) insurance is a life insurance product, not a securities or investment product. IUL policies include insurance charges and fees that reduce cash value accumulation. Policy loans reduce the death benefit and cash value. If a policy lapses with an outstanding loan, adverse tax consequences may result. Not all individuals will qualify for coverage. Always consult with a licensed insurance professional and independent tax advisor.</p>
+        <p style="margin-top: 0.75rem;"><strong>Product Disclosure:</strong> Certain properly structured financial products include charges and fees that reduce cash value accumulation. Loans reduce the account value. If a product lapses with an outstanding loan, adverse tax consequences may result. Not all individuals will qualify. Always consult with a licensed financial professional and independent tax advisor.</p>
         <p style="margin-top: 0.75rem;"><strong>Not Affiliated with Facebook:</strong> This site is not a part of the Facebook website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of FACEBOOK, Inc.</p>
         <p style="margin-top: 0.75rem;"><strong>No Guarantee of Results:</strong> Any income or return projections are illustrative only. The LIFT Method and AFI Group do not guarantee any specific financial outcome. Consult a qualified, licensed financial advisor before making any financial decisions.</p>
       </div>
@@ -471,7 +471,7 @@ function renderActiveCalculator() {
             </ul>
           </div>
           <div style="padding: 2rem; background: rgba(85, 166, 119, 0.05); border: 1px solid rgba(85, 166, 119, 0.2); border-radius: 12px; border-left: 4px solid hsl(var(--accent));">
-            <h3 class="value-green" style="margin-bottom: 1.5rem;">LIFT Strategy (IUL-Based)</h3>
+            <h3 class="value-green" style="margin-bottom: 1.5rem;">LIFT Strategy (Properly Structured)</h3>
             <ul style="list-style: none; color: #ccd6f6; font-size: 0.95rem; line-height: 2;">
               <li>✅ Policy loans can be tax-free (if structured properly)</li>
               <li>✅ No RMD requirements</li>
@@ -537,7 +537,7 @@ function renderActiveCalculator() {
             <p style="font-size: 0.75rem; margin-top: 0.5rem; color: #F44336;">Effective loss including withdrawals during recovery: ~$${fmt(effectiveLossWithWithdrawal)}</p>
           </div>
           <div style="padding: 1.5rem; background: rgba(85, 166, 119, 0.08); border: 1px solid rgba(85, 166, 119, 0.2); border-radius: 12px;">
-            <div class="result-label">IUL WITH 0% FLOOR — AFTER SAME CRASH*</div>
+            <div class="result-label">PROPERLY STRUCTURED PRODUCT WITH 0% FLOOR — AFTER SAME CRASH*</div>
             <div class="result-value value-green">$${fmt(calcData.balance)}</div>
             <p style="font-size: 0.85rem; margin-top: 0.75rem; color: #8892B0;">Index interest credited: $0 (floored at 0%, not negative)</p>
             <p style="font-size: 0.85rem; color: #8892B0;">Cash value reduced by ongoing policy charges</p>
@@ -551,13 +551,13 @@ function renderActiveCalculator() {
             <p style="font-size: 0.75rem; margin-top: 0.25rem; color: #495670;">From 401k at ${calcData.bracket}% bracket</p>
           </div>
           <div style="padding: 1.25rem; background: rgba(100, 255, 218, 0.05); border: 1px solid rgba(100, 255, 218, 0.1); border-radius: 12px;">
-            <div class="result-label" style="color: #64FFDA;">TAX ON IUL POLICY LOANS</div>
+            <div class="result-label" style="color: #64FFDA;">TAX ON PROPERLY STRUCTURED PRODUCT LOANS</div>
             <div class="result-value" style="font-size: 1.75rem; color: #64FFDA;">$0/yr*</div>
-            <p style="font-size: 0.75rem; margin-top: 0.25rem; color: #495670;">Policy loans are not taxable income if policy stays in force</p>
+            <p style="font-size: 0.75rem; margin-top: 0.25rem; color: #495670;">Properly structured loans are not taxable income if the product stays in force</p>
           </div>
         </div>
         <div style="background: rgba(2, 12, 27, 0.5); border-radius: 8px; padding: 1rem 1.5rem; border: 1px solid rgba(255,255,255,0.05); font-size: 0.75rem; color: #495670; line-height: 1.5;">
-          *Hypothetical scenarios only. The 0% floor applies to indexed interest crediting only — ongoing policy charges, cost of insurance, and admin fees are still deducted from cash value. Policy loans reduce death benefit. If the policy lapses with an outstanding loan balance, the loan amount may become taxable income. Recovery time estimate assumes 7% average annual return with no further withdrawals during recovery — actual recovery scenarios depend on withdrawal rate, sequence, and market returns. This is not a guarantee of any outcome.
+          *Hypothetical scenarios only. The 0% floor applies to indexed interest crediting only — ongoing product charges and admin fees are still deducted from account value. Loans reduce account value. If the product lapses with an outstanding loan balance, the loan amount may become taxable income. Recovery time estimate assumes 7% average annual return with no further withdrawals during recovery — actual recovery scenarios depend on withdrawal rate, sequence, and market returns. This is not a guarantee of any outcome.
         </div>
       </div>
     `
