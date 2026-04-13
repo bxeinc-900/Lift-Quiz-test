@@ -3,7 +3,7 @@ import { questions, calculateExposure } from './quiz'
 
 const app = document.querySelector<HTMLDivElement>('#app')!
 
-// --- State Management ---
+// --- Global State ---
 let currentState: 'hero' | 'quiz' | 'results' = 'hero'
 let currentQuestionIndex = 0
 let scores: number[] = []
@@ -14,6 +14,46 @@ let calcData = {
   balance: 500000,
   withdrawal: 40000,
   bracket: 22
+}
+
+// --- Global Fail-Safe Handlers ---
+// @ts-ignore
+window.startQuiz = () => {
+  console.log('Global window.startQuiz triggered')
+  currentState = 'quiz'
+  currentQuestionIndex = 0
+  scores = []
+  render()
+}
+
+// @ts-ignore
+window.openBookingModal = () => {
+  const modal = document.querySelector('#booking-modal')
+  if (modal) {
+    modal.classList.add('active')
+    const iframe = modal.querySelector('iframe') as HTMLIFrameElement
+    if (iframe) iframe.src = iframe.src 
+  }
+}
+
+// @ts-ignore
+window.openMethodModal = () => {
+  const modal = document.querySelector('#method-modal')
+  if (modal) modal.classList.add('active')
+}
+
+// @ts-ignore
+window.closeModal = (id: string) => {
+  const modal = document.querySelector(`#${id}`)
+  if (modal) {
+    modal.classList.remove('active')
+  }
+}
+
+// @ts-ignore
+window.setActiveTab = (tab: 'tax' | 'income' | 'side' | 'risk') => {
+  activeCalcTab = tab
+  render()
 }
 
 // --- Render Functions ---
@@ -30,7 +70,7 @@ function render() {
       <div style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.025em;" class="text-gold">
         AFI GROUP <span style="color: #E6F1FF; font-weight: 400; font-size: 0.9rem; margin-left: 0.5rem; opacity: 0.6;">INVESTIGATIONS</span>
       </div>
-      <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.875rem;">STRATEGY SESSION</button>
+      <button class="btn btn-outline" onclick="window.openBookingModal()" style="padding: 0.5rem 1rem; font-size: 0.875rem;">STRATEGY SESSION</button>
     </div>
   `
   app.appendChild(header)
@@ -63,14 +103,6 @@ function render() {
   `
   app.appendChild(footer)
 
-  // Attach Header CTA Listener
-  header.querySelector('.btn-outline')?.addEventListener('click', openBookingModal)
-
-  // Attach Learn Method Listener
-  if (currentState === 'hero') {
-    main.querySelector('#learn-method')?.addEventListener('click', openMethodModal)
-  }
-
   // Add Modals to page if not present
   if (!document.querySelector('#booking-modal')) {
     document.body.appendChild(renderBookingModal())
@@ -80,29 +112,28 @@ function render() {
   }
 }
 
-function openBookingModal() {
-  const modal = document.querySelector('#booking-modal')
-  if (modal) modal.classList.add('active')
-  // Ensure the iframe fits correctly
-  const iframe = document.querySelector('#booking-modal iframe') as HTMLIFrameElement
-  if (iframe) {
-    iframe.src = iframe.src // Refresh if needed for resizing
-  }
-}
-
-function closeBookingModal() {
-  const modal = document.querySelector('#booking-modal')
-  if (modal) modal.classList.remove('active')
-}
-
-function openMethodModal() {
-  const modal = document.querySelector('#method-modal')
-  if (modal) modal.classList.add('active')
-}
-
-function closeMethodModal() {
-  const modal = document.querySelector('#method-modal')
-  if (modal) modal.classList.remove('active')
+function renderBookingModal() {
+  const div = document.createElement('div')
+  div.className = 'modal-overlay'
+  div.id = 'booking-modal'
+  div.innerHTML = `
+    <div class="modal-content glass">
+      <button class="modal-close" onclick="window.closeModal('booking-modal')">&times;</button>
+      <div class="modal-header">
+        <h2 class="text-gold" style="font-size: 1.75rem; margin-bottom: 0.5rem;">Secure Your Strategy Session</h2>
+        <p style="color: #8892B0; font-size: 0.9rem;">Select an available time for your forensic analysis below.</p>
+      </div>
+      <div class="modal-body">
+        <iframe src="https://links.wealthvids.com/widget/booking/LwAMMZIaCleIBD0dAVLC" style="width: 100%; height: 700px; border:none; overflow: auto;" id="LwAMMZIaCleIBD0dAVLC_1776035780550"></iframe>
+      </div>
+    </div>
+  `
+  
+  div.addEventListener('click', (e) => {
+    if (e.target === div) window.closeModal('booking-modal')
+  })
+  
+  return div
 }
 
 function renderMethodModal() {
@@ -111,7 +142,7 @@ function renderMethodModal() {
   div.id = 'method-modal'
   div.innerHTML = `
     <div class="modal-content glass" style="max-width: 700px;">
-      <button class="modal-close">&times;</button>
+      <button class="modal-close" onclick="window.closeModal('method-modal')">&times;</button>
       <div class="modal-header">
         <div class="glass-pill" style="margin-bottom: 1rem;">STRATEGY BRIEFING</div>
         <h2 class="text-gold" style="font-size: 2rem; margin-bottom: 0.5rem;">The LIFT Method</h2>
@@ -142,7 +173,7 @@ function renderMethodModal() {
 
           <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem;">
             <p style="font-size: 1.1rem; color: #E6F1FF; margin-bottom: 1.5rem;">Ready to see your forensic report?</p>
-            <button id="modal-start-quiz" class="btn btn-primary" style="width: 100%;">START THE ASSESSMENT</button>
+            <button class="btn btn-primary" onclick="window.startQuiz(); window.closeModal('method-modal');" style="width: 100%;">START THE ASSESSMENT</button>
           </div>
 
         </div>
@@ -150,40 +181,8 @@ function renderMethodModal() {
     </div>
   `
   
-  div.querySelector('.modal-close')?.addEventListener('click', closeMethodModal)
   div.addEventListener('click', (e) => {
-    if (e.target === div) closeMethodModal()
-  })
-
-  div.querySelector('#modal-start-quiz')?.addEventListener('click', () => {
-    closeMethodModal()
-    currentState = 'quiz'
-    render()
-  })
-  
-  return div
-}
-
-function renderBookingModal() {
-  const div = document.createElement('div')
-  div.className = 'modal-overlay'
-  div.id = 'booking-modal'
-  div.innerHTML = `
-    <div class="modal-content glass">
-      <button class="modal-close">&times;</button>
-      <div class="modal-header">
-        <h2 class="text-gold" style="font-size: 1.75rem; margin-bottom: 0.5rem;">Secure Your Strategy Session</h2>
-        <p style="color: #8892B0; font-size: 0.9rem;">Select an available time for your forensic analysis below.</p>
-      </div>
-      <div class="modal-body">
-        <iframe src="https://links.wealthvids.com/widget/booking/LwAMMZIaCleIBD0dAVLC" style="width: 100%; height: 700px; border:none; overflow: auto;" id="LwAMMZIaCleIBD0dAVLC_1776035780550"></iframe>
-      </div>
-    </div>
-  `
-  
-  div.querySelector('.modal-close')?.addEventListener('click', closeBookingModal)
-  div.addEventListener('click', (e) => {
-    if (e.target === div) closeBookingModal()
+    if (e.target === div) window.closeModal('method-modal')
   })
   
   return div
@@ -201,17 +200,10 @@ function renderHero() {
     </p>
     <div style="display: flex; gap: 1rem; justify-content: center;">
       <button id="start-quiz" class="btn btn-primary" onclick="window.startQuiz()">START ASSESSMENT</button>
-      <button id="learn-method" class="btn btn-outline">LEARN THE METHOD</button>
+      <button id="learn-method" class="btn btn-outline" onclick="window.openMethodModal()">LEARN THE METHOD</button>
     </div>
   `
   return section
-}
-
-// @ts-ignore
-window.startQuiz = () => {
-  console.log('Global window.startQuiz triggered')
-  currentState = 'quiz'
-  render()
 }
 
 function renderQuiz() {
@@ -257,10 +249,10 @@ function renderResults() {
   const section = document.createElement('section')
   section.className = 'container animate-fade-in'
   
-  let resultsHTML = `
+  let resultsHTML = \`
     <div class="results-header">
       <div class="glass-pill" style="border-color: #F44336; color: #F44336;">PRIVATE INVESTIGATION REPORT</div>
-      <h1 style="font-size: 3.5rem;">Analysis Status: <span class="text-gold">${exposure}</span></h1>
+      <h1 style="font-size: 3.5rem;">Analysis Status: <span class="text-gold">\${exposure}</span></h1>
       <p style="margin-top: 1rem; max-width: 800px; margin-left: auto; margin-right: auto;">
         Our investigation shows significant vulnerabilities in your current retirement architecture. 
         Watch the briefing and use the personal calculators below to see the impact.
@@ -283,14 +275,14 @@ function renderResults() {
       </div>
 
       <div class="calc-tabs">
-        <button class="calc-tab ${activeCalcTab === 'tax' ? 'active' : ''}" data-tab="tax">Tax exposure</button>
-        <button class="calc-tab ${activeCalcTab === 'income' ? 'active' : ''}" data-tab="income">Income gap</button>
-        <button class="calc-tab ${activeCalcTab === 'side' ? 'active' : ''}" data-tab="side">Side-by-side</button>
-        <button class="calc-tab ${activeCalcTab === 'risk' ? 'active' : ''}" data-tab="risk">Risk score</button>
+        <button class="calc-tab \${activeCalcTab === 'tax' ? 'active' : ''}" onclick="window.setActiveTab('tax')">Tax exposure</button>
+        <button class="calc-tab \${activeCalcTab === 'income' ? 'active' : ''}" onclick="window.setActiveTab('income')">Income gap</button>
+        <button class="calc-tab \${activeCalcTab === 'side' ? 'active' : ''}" onclick="window.setActiveTab('side')">Side-by-side</button>
+        <button class="calc-tab \${activeCalcTab === 'risk' ? 'active' : ''}" onclick="window.setActiveTab('risk')">Risk score</button>
       </div>
 
       <div class="calc-card glass">
-        ${renderActiveCalculator()}
+        \${renderActiveCalculator()}
       </div>
     </section>
 
@@ -324,268 +316,144 @@ function renderResults() {
           Due to the forensic nature of these analysis sessions, we only have capacity for 3 private consults this week. Intercept the IRS before they claim their "silent partnership" in your life's work.
         </p>
         
-        <button class="btn btn-primary" style="padding: 1.5rem 4rem; font-size: 1.25rem;">SECURE YOUR CASE STRATEGY CALL</button>
+        <button class="btn btn-primary" onclick="window.openBookingModal()" style="padding: 1.5rem 4rem; font-size: 1.25rem;">SECURE YOUR CASE STRATEGY CALL</button>
         <p style="margin-top: 1.5rem; color: #F44336; font-size: 0.9rem; font-weight: 600;">⚠️ WARNING: This window for intervention will permanently close as we approach the 2026 Sunset.</p>
       </div>
     </div>
     </div>
-  `
+  \`
   
   section.innerHTML = resultsHTML
-
-  // Targeted update logic
-  const updateResultsDisplay = (container: Element) => {
-    if (activeCalcTab === 'tax') {
-      const annualTax = calcData.withdrawal * (calcData.bracket / 100)
-      const netIncome = calcData.withdrawal - annualTax
-      const totalTax25 = annualTax * 25
-      const accessible = calcData.balance * (1 - (calcData.bracket / 100))
-      const youPercent = 100 - calcData.bracket
-
-      // Update output text nodes
-      const values = container.querySelectorAll('.result-value')
-      if (values[0]) values[0].textContent = `$${annualTax.toLocaleString()}`
-      if (values[1]) values[1].textContent = `$${netIncome.toLocaleString()}`
-      if (values[2]) values[2].textContent = `$${totalTax25.toLocaleString()}`
-      if (values[3]) values[3].textContent = `$${accessible.toLocaleString()}`
-
-      // Update bar segments
-      const barYou = container.querySelector('.bar-you') as HTMLElement
-      const barIRS = container.querySelector('.bar-irs') as HTMLElement
-      if (barYou) {
-        barYou.style.width = `${youPercent}%`
-        barYou.textContent = `You ${youPercent}%`
-      }
-      if (barIRS) {
-        barIRS.style.width = `${calcData.bracket}%`
-        barIRS.textContent = `IRS ${calcData.bracket}%`
-      }
-
-      const footerTextSpan = container.querySelector('.calc-footer-text')
-      if (footerTextSpan) {
-        footerTextSpan.innerHTML = `Of every $${calcData.withdrawal.toLocaleString()} withdrawn, <span class="value-red">$${annualTax.toLocaleString()}</span> goes to taxes before you can spend it.`
-      }
-    } else if (activeCalcTab === 'income') {
-        const fees401k = calcData.balance * 0.01
-        const taxes401k = calcData.withdrawal * (calcData.bracket / 100)
-        const v = container.querySelectorAll('.result-value')
-        if (v[0]) v[0].textContent = `$${fees401k.toLocaleString()}`
-        if (v[1]) v[1].textContent = `$${taxes401k.toLocaleString()}`
-    } else if (activeCalcTab === 'risk') {
-        const crashValue = calcData.balance * 0.8
-        const v = container.querySelectorAll('.result-value')
-        if (v[0]) v[0].textContent = `$${crashValue.toLocaleString()}`
-        if (v[1]) v[1].textContent = `$${calcData.balance.toLocaleString()}`
-    }
-  }
-
-  const attachInputListeners = (container: Element) => {
-    const inputs = [
-        container.querySelector('#balance') as HTMLInputElement,
-        container.querySelector('#withdrawal') as HTMLInputElement,
-        container.querySelector('#bracket') as HTMLSelectElement
-    ]
-
-    inputs.forEach(input => {
-      input?.addEventListener('input', (e) => {
-        const target = e.target as HTMLInputElement | HTMLSelectElement
-        const val = parseInt(target.value) || 0
-        if (target.id === 'balance') calcData.balance = val
-        if (target.id === 'withdrawal') calcData.withdrawal = val
-        if (target.id === 'bracket') calcData.bracket = val
-        
-        updateResultsDisplay(container)
-      })
-    })
-  }
-
-  // Event Listeners for tabs
-  section.querySelectorAll('.calc-tab').forEach(tab => {
-    tab.addEventListener('click', (e) => {
-      const target = e.target as HTMLElement
-      activeCalcTab = target.dataset.tab as any
-      
-      // Update Tab Visuals
-      section.querySelectorAll('.calc-tab').forEach(t => t.classList.remove('active'))
-      target.classList.add('active')
-      
-      // Update Card Content
-      const calcCard = section.querySelector('.calc-card')
-      if (calcCard) {
-        calcCard.innerHTML = renderActiveCalculator()
-        attachInputListeners(calcCard)
-      }
-    })
-  })
-
-  // Attach Result CTA Listener
-  section.querySelector('.btn-primary')?.addEventListener('click', openBookingModal)
-
-  // Initial attachment
-  const calcCard = section.querySelector('.calc-card')
-  if (calcCard) attachInputListeners(calcCard)
-
   return section
 }
 
 function renderActiveCalculator() {
   if (activeCalcTab === 'tax') {
-    const annualTax = calcData.withdrawal * (calcData.bracket / 100)
-    const netIncome = calcData.withdrawal - annualTax
-    const totalTax25 = annualTax * 25
-    const accessible = calcData.balance * (1 - (calcData.bracket / 100))
-    const youPercent = 100 - calcData.bracket
-    
-    return `
-      <div class="animate-fade-in">
-        <p style="margin-bottom: 2rem; color: #CCD6F6; line-height: 1.6;">Every dollar withdrawn from a traditional 401(k) is taxed as ordinary income. See exactly what the IRS will claim before you can spend a dollar of it.</p>
-        
-        <div class="calc-grid">
-          <div>
-            <div class="input-group">
-              <label class="input-label">Current retirement balance</label>
-              <div class="input-field-wrapper">
-                <span class="input-symbol">$</span>
-                <input type="number" id="balance" class="input-element" value="${calcData.balance}">
-              </div>
-            </div>
-            <div class="input-group">
-              <label class="input-label">Annual withdrawal needed</label>
-              <div class="input-field-wrapper">
-                <span class="input-symbol">$</span>
-                <input type="number" id="withdrawal" class="input-element" value="${calcData.withdrawal}">
-              </div>
-            </div>
-            <div class="input-group">
-              <label class="input-label">Your tax bracket in retirement</label>
-              <select id="bracket" class="input-element select-element">
-                <option value="10" ${calcData.bracket === 10 ? 'selected' : ''}>10% federal bracket</option>
-                <option value="12" ${calcData.bracket === 12 ? 'selected' : ''}>12% federal bracket</option>
-                <option value="22" ${calcData.bracket === 22 ? 'selected' : ''}>22% federal bracket</option>
-                <option value="24" ${calcData.bracket === 24 ? 'selected' : ''}>24% federal bracket</option>
-                <option value="32" ${calcData.bracket === 32 ? 'selected' : ''}>32% federal bracket</option>
-                <option value="35" ${calcData.bracket === 35 ? 'selected' : ''}>35% federal bracket</option>
-                <option value="37" ${calcData.bracket === 37 ? 'selected' : ''}>37% federal bracket</option>
-              </select>
+    const annualTaxes = calcData.balance * (calcData.bracket / 100)
+    const netIncome = calcData.withdrawal - (calcData.withdrawal * (calcData.bracket / 100))
+    const totalTaxes = annualTaxes * 25
+
+    return \`
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+        <div>
+          <div style="margin-bottom: 2rem;">
+            <label style="display: block; color: #8892B0; margin-bottom: 0.5rem; font-size: 0.9rem;">Current retirement balance</label>
+            <div style="position: relative;">
+              <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: hsl(var(--accent));">$</span>
+              <input type="number" value="\${calcData.balance}" onchange="calcData.balance = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem 1rem 1rem 2rem; border-radius: 8px; color: #fff;">
             </div>
           </div>
-
-          <div class="result-group">
-            <div class="result-item">
-              <span class="result-label">Annual taxes to IRS</span>
-              <span class="result-value value-red">$${annualTax.toLocaleString()}</span>
-              <span style="font-size: 0.9rem; color: #8892B0;">${calcData.bracket}% of every withdrawal</span>
+          <div style="margin-bottom: 2rem;">
+            <label style="display: block; color: #8892B0; margin-bottom: 0.5rem; font-size: 0.9rem;">Annual withdrawal needed</label>
+            <div style="position: relative;">
+              <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: hsl(var(--accent));">$</span>
+              <input type="number" value="\${calcData.withdrawal}" onchange="calcData.withdrawal = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem 1rem 1rem 2rem; border-radius: 8px; color: #fff;">
             </div>
-            <div class="result-item">
-              <span class="result-label">Your net annual income</span>
-              <span class="result-value value-green">$${netIncome.toLocaleString()}</span>
-            </div>
-            <div class="result-item">
-              <span class="result-label">Total taxes over 25 years</span>
-              <span class="result-value value-red">$${totalTax25.toLocaleString()}</span>
-            </div>
-            <div class="result-item">
-              <span class="result-label">Accessible balance (after-tax)</span>
-              <span class="result-value value-gold">$${accessible.toLocaleString()}</span>
-            </div>
+          </div>
+          <div>
+            <label style="display: block; color: #8892B0; margin-bottom: 0.5rem; font-size: 0.9rem;">Your tax bracket in retirement</label>
+            <select onchange="calcData.bracket = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; color: #fff;">
+              <option value="12" \${calcData.bracket === 12 ? 'selected' : ''}>12% federal bracket</option>
+              <option value="22" \${calcData.bracket === 22 ? 'selected' : ''}>22% federal bracket</option>
+              <option value="24" \${calcData.bracket === 24 ? 'selected' : ''}>24% federal bracket</option>
+              <option value="32" \${calcData.bracket === 32 ? 'selected' : ''}>32% federal bracket</option>
+              <option value="37" \${calcData.bracket === 37 ? 'selected' : ''}>37% federal bracket</option>
+            </select>
           </div>
         </div>
-
-        <div class="bar-chart-container">
-          <div class="bar-chart-label">Where each withdrawal dollar goes</div>
-          <div class="bar-chart">
-            <div class="bar-segment bar-you" style="width: ${youPercent}%">You ${youPercent}%</div>
-            <div class="bar-segment bar-irs" style="width: ${calcData.bracket}%">IRS ${calcData.bracket}%</div>
+        <div class="result-display">
+          <div style="margin-bottom: 2rem;">
+            <div class="result-label">ANNUAL TAXES TO IRS</div>
+            <div class="result-value value-red">$\${annualTaxes.toLocaleString()}</div>
+            <p style="font-size: 0.8rem; margin-top: 0.25rem; opacity: 0.7;">\${calcData.bracket}% of every withdrawal</p>
           </div>
-          <p class="calc-footer-text">Of every $${calcData.withdrawal.toLocaleString()} withdrawn, <span class="value-red">$${annualTax.toLocaleString()}</span> goes to taxes before you can spend it.</p>
+          <div style="margin-bottom: 2rem;">
+            <div class="result-label">YOUR NET ANNUAL INCOME</div>
+            <div class="result-value value-green">$\${netIncome.toLocaleString()}</div>
+          </div>
+          <div style="padding: 1.5rem; background: rgba(244, 67, 54, 0.1); border: 1px solid rgba(244, 67, 54, 0.2); border-radius: 12px;">
+            <div class="result-label">TOTAL TAXES OVER 25 YEARS</div>
+            <div class="result-value value-red" style="font-size: 2rem;">$\${totalTaxes.toLocaleString()}</div>
+          </div>
         </div>
       </div>
-    `
+    \`
   }
 
   if (activeCalcTab === 'income') {
-    const fees401k = calcData.balance * 0.01 // 1% fees
-    const taxes401k = calcData.withdrawal * (calcData.bracket / 100)
-    
-    return `
-      <div class="animate-fade-in">
-        <p style="margin-bottom: 2rem; color: #CCD6F6; line-height: 1.6;">Comparing the "Death by a Thousand Cuts" (401k fees + taxes) vs the LIFT Method Efficiency.</p>
-        <div class="calc-grid">
-          <div>
-            <h3 class="text-gold" style="margin-bottom: 2rem; font-size: 1.5rem;">The 401(k) Leakage</h3>
-            <div class="result-item" style="margin-bottom: 2rem;">
-              <span class="result-label">Est. Annual Management Fees (1%)</span>
-              <span class="result-value value-red">$${fees401k.toLocaleString()}</span>
-            </div>
-            <div class="result-item">
-              <span class="result-label">Est. Annual Tax Liability (${calcData.bracket}%)</span>
-              <span class="result-value value-red">$${taxes401k.toLocaleString()}</span>
-            </div>
-          </div>
-          <div style="background: rgba(85, 166, 119, 0.1); padding: 2rem; border-radius: 12px; border: 1px solid rgba(85, 166, 119, 0.3);">
-            <h3 class="value-green" style="margin-bottom: 1.5rem; font-size: 1.5rem;">The LIFT Advantage</h3>
-            <p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem;">By using the LIFT method, you legally bypass the ordinary income tax trap on your distributions.</p>
-            <div class="result-item">
-              <span class="result-label">Net Spendable Cash Flow Efficiency</span>
-              <span class="result-value value-green">95.4%</span>
-              <span style="font-size: 0.9rem; color: #8892B0;">vs 401(k)'s ~74% efficiency</span>
+    const gap = calcData.withdrawal * 0.4
+    return \`
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+        <div>
+          <h3 style="margin-bottom: 1.5rem;">The Retirement Gap</h3>
+          <p style="color: #8892B0; margin-bottom: 2rem;">Inflation and rising taxes act as a "Wealth Leak". If your income doesn't adjust, your purchasing power will decline by an estimated 40% over 20 years.</p>
+          <div style="margin-bottom: 2rem;">
+            <label style="display: block; color: #8892B0; margin-bottom: 0.5rem; font-size: 0.9rem;">Desired Net Income</label>
+            <div style="position: relative;">
+               <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: hsl(var(--accent));">$</span>
+               <input type="number" value="\${calcData.withdrawal}" onchange="calcData.withdrawal = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem 1rem 1rem 2rem; border-radius: 8px; color: #fff;">
             </div>
           </div>
         </div>
+        <div class="result-display">
+           <div style="margin-bottom: 2rem;">
+            <div class="result-label">ESTIMATED INCOME GAP</div>
+            <div class="result-value value-red">$\${gap.toLocaleString()}</div>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">Annual wealth leak due to inflation/taxes</p>
+          </div>
+          <div style="padding: 1.5rem; background: rgba(2, 12, 27, 0.3); border: 1px solid hsl(var(--accent)); border-radius: 12px;">
+            <div class="result-label text-gold">REQUIRED LIFT MULTIPLIER</div>
+            <div class="result-value">2.15x</div>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">To maintain purchasing power</p>
+          </div>
+        </div>
       </div>
-    `
+    \`
   }
 
   if (activeCalcTab === 'side') {
-    return `
-      <div class="animate-fade-in">
-        <h3 class="text-gold" style="margin-bottom: 2rem; font-size: 1.5rem;">Direct Comparison: $${calcData.balance.toLocaleString()} Portfolio</h3>
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-          <div style="display: grid; grid-template-columns: 1fr 2fr 1fr; align-items: center; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 8px;">
-            <span style="font-weight: 700;">FEATURE</span>
-            <span style="font-weight: 700; text-align: center;">TRADITIONAL 401(K)</span>
-            <span style="font-weight: 700; text-align: right;" class="text-gold">LIFT METHOD</span>
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 2fr 1fr; align-items: center; padding: 1.5rem 1rem;">
-            <span>Market Downside</span>
-            <span style="text-align: center;" class="value-red">Unlimited Risk</span>
-            <span style="text-align: right;" class="value-green">0% Floor Protection</span>
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 2fr 1fr; align-items: center; padding: 1.5rem 1rem; background: rgba(255,255,255,0.03);">
-            <span>Taxation</span>
-            <span style="text-align: center;" class="value-red">Deferred (Tax Time Bomb)</span>
-            <span style="text-align: right;" class="value-green">Tax-Free Distributions</span>
-          </div>
-           <div style="display: grid; grid-template-columns: 1fr 2fr 1fr; align-items: center; padding: 1.5rem 1rem;">
-            <span>Access To Capital</span>
-            <span style="text-align: center;">Age 59.5 Restriction</span>
-            <span style="text-align: right;" class="value-green">Immediate & Liquid</span>
-          </div>
+    return \`
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div style="padding: 2rem; background: rgba(244, 67, 54, 0.05); border: 1px solid rgba(244, 67, 54, 0.1); border-radius: 12px;">
+          <h3 class="value-red" style="margin-bottom: 1.5rem;">Traditional 401(k)</h3>
+          <ul style="list-style: none; color: #8892B0; font-size: 0.95rem;">
+            <li style="margin-bottom: 1rem;">❌ Full Tax Exposure</li>
+            <li style="margin-bottom: 1rem;">❌ 100% Market Risk</li>
+            <li style="margin-bottom: 1rem;">❌ No Inflation Hedge</li>
+            <li>❌ "Silent Partner" (IRS)</li>
+          </ul>
+        </div>
+        <div style="padding: 2rem; background: rgba(85, 166, 119, 0.05); border: 1px solid rgba(85, 166, 119, 0.2); border-radius: 12px; border-left: 4px solid hsl(var(--accent));">
+          <h3 class="value-green" style="margin-bottom: 1.5rem;">The LIFT Method</h3>
+          <ul style="list-style: none; color: #ccd6f6; font-size: 0.95rem;">
+            <li style="margin-bottom: 1rem;">✅ 0% Tax Liability</li>
+            <li style="margin-bottom: 1rem;">✅ 0% Market Floor</li>
+            <li style="margin-bottom: 1rem;">✅ 2.15x Leverage Multiplier</li>
+            <li>✅ 100% Control & Privacy</li>
+          </ul>
         </div>
       </div>
-    `
+    \`
   }
 
   if (activeCalcTab === 'risk') {
-    return `
-      <div class="animate-fade-in" style="text-align: center;">
-        <h3 class="text-gold" style="margin-bottom: 2rem; font-size: 1.8rem;">Portfolio Stress Test</h3>
-        <div style="max-width: 600px; margin: 0 auto;">
-          <p style="margin-bottom: 3rem; line-height: 1.6;">If the market drops 20% tomorrow, your 401(k) loses 20%. To recover that loss, you need a 25% gain just to break even.</p>
-          
-          <div style="padding: 2rem; background: rgba(244, 67, 54, 0.1); border: 1px solid rgba(244, 67, 54, 0.3); border-radius: 12px; margin-bottom: 2rem;">
-            <div class="result-label">401(k) Value After -20% Crash</div>
-            <div class="result-value value-red">$${(calcData.balance * 0.8).toLocaleString()}</div>
+    return \`
+      <div style="text-align: center;">
+        <h3 style="margin-bottom: 2rem;">Your Forensic Risk Assessment</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div style="padding: 2rem; background: rgba(244, 67, 54, 0.1); border: 1px solid rgba(244, 67, 54, 0.3); border-radius: 12px;">
+            <div class="result-label">Standard Plan After -20% Crash</div>
+            <div class="result-value value-red">$\${(calcData.balance * 0.8).toLocaleString()}</div>
+            <p style="font-size: 0.85rem; margin-top: 1rem; opacity: 0.8;">Market losses plus future tax liability.</p>
           </div>
-
           <div style="padding: 2rem; background: rgba(85, 166, 119, 0.1); border: 1px solid rgba(85, 166, 119, 0.3); border-radius: 12px;">
             <div class="result-label">LIFT Method Value After -20% Crash</div>
-            <div class="result-value value-green">$${calcData.balance.toLocaleString()}</div>
+            <div class="result-value value-green">$\${calcData.balance.toLocaleString()}</div>
             <p style="font-size: 0.85rem; margin-top: 1rem; opacity: 0.8;">Locked in at current high with 0% Floor.</p>
           </div>
         </div>
       </div>
-    `
+    \`
   }
   
   return ''
