@@ -249,10 +249,10 @@ function renderResults() {
   const section = document.createElement('section')
   section.className = 'container animate-fade-in'
   
-  let resultsHTML = \`
+  let resultsHTML = `
     <div class="results-header">
       <div class="glass-pill" style="border-color: #F44336; color: #F44336;">PRIVATE INVESTIGATION REPORT</div>
-      <h1 style="font-size: 3.5rem;">Analysis Status: <span class="text-gold">\${exposure}</span></h1>
+      <h1 style="font-size: 3.5rem;">Analysis Status: <span class="text-gold">${exposure}</span></h1>
       <p style="margin-top: 1rem; max-width: 800px; margin-left: auto; margin-right: auto;">
         Our investigation shows significant vulnerabilities in your current retirement architecture. 
         Watch the briefing and use the personal calculators below to see the impact.
@@ -275,14 +275,14 @@ function renderResults() {
       </div>
 
       <div class="calc-tabs">
-        <button class="calc-tab \${activeCalcTab === 'tax' ? 'active' : ''}" onclick="window.setActiveTab('tax')">Tax exposure</button>
-        <button class="calc-tab \${activeCalcTab === 'income' ? 'active' : ''}" onclick="window.setActiveTab('income')">Income gap</button>
-        <button class="calc-tab \${activeCalcTab === 'side' ? 'active' : ''}" onclick="window.setActiveTab('side')">Side-by-side</button>
-        <button class="calc-tab \${activeCalcTab === 'risk' ? 'active' : ''}" onclick="window.setActiveTab('risk')">Risk score</button>
+        <button class="calc-tab ${activeCalcTab === 'tax' ? 'active' : ''}" onclick="window.setActiveTab('tax')">Tax exposure</button>
+        <button class="calc-tab ${activeCalcTab === 'income' ? 'active' : ''}" onclick="window.setActiveTab('income')">Income gap</button>
+        <button class="calc-tab ${activeCalcTab === 'side' ? 'active' : ''}" onclick="window.setActiveTab('side')">Side-by-side</button>
+        <button class="calc-tab ${activeCalcTab === 'risk' ? 'active' : ''}" onclick="window.setActiveTab('risk')">Risk score</button>
       </div>
 
       <div class="calc-card glass">
-        \${renderActiveCalculator()}
+        ${renderActiveCalculator()}
       </div>
     </section>
 
@@ -321,7 +321,7 @@ function renderResults() {
       </div>
     </div>
     </div>
-  \`
+  `;
   
   section.innerHTML = resultsHTML
   return section
@@ -333,56 +333,56 @@ function renderActiveCalculator() {
     const netIncome = calcData.withdrawal - (calcData.withdrawal * (calcData.bracket / 100))
     const totalTaxes = annualTaxes * 25
 
-    return \`
+    return `
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
         <div>
           <div style="margin-bottom: 2rem;">
             <label style="display: block; color: #8892B0; margin-bottom: 0.5rem; font-size: 0.9rem;">Current retirement balance</label>
             <div style="position: relative;">
               <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: hsl(var(--accent));">$</span>
-              <input type="number" value="\${calcData.balance}" onchange="calcData.balance = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem 1rem 1rem 2rem; border-radius: 8px; color: #fff;">
+              <input type="number" value="${calcData.balance}" onchange="calcData.balance = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem 1rem 1rem 2rem; border-radius: 8px; color: #fff;">
             </div>
           </div>
           <div style="margin-bottom: 2rem;">
             <label style="display: block; color: #8892B0; margin-bottom: 0.5rem; font-size: 0.9rem;">Annual withdrawal needed</label>
             <div style="position: relative;">
               <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: hsl(var(--accent));">$</span>
-              <input type="number" value="\${calcData.withdrawal}" onchange="calcData.withdrawal = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem 1rem 1rem 2rem; border-radius: 8px; color: #fff;">
+              <input type="number" value="${calcData.withdrawal}" onchange="calcData.withdrawal = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem 1rem 1rem 2rem; border-radius: 8px; color: #fff;">
             </div>
           </div>
           <div>
             <label style="display: block; color: #8892B0; margin-bottom: 0.5rem; font-size: 0.9rem;">Your tax bracket in retirement</label>
             <select onchange="calcData.bracket = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; color: #fff;">
-              <option value="12" \${calcData.bracket === 12 ? 'selected' : ''}>12% federal bracket</option>
-              <option value="22" \${calcData.bracket === 22 ? 'selected' : ''}>22% federal bracket</option>
-              <option value="24" \${calcData.bracket === 24 ? 'selected' : ''}>24% federal bracket</option>
-              <option value="32" \${calcData.bracket === 32 ? 'selected' : ''}>32% federal bracket</option>
-              <option value="37" \${calcData.bracket === 37 ? 'selected' : ''}>37% federal bracket</option>
+              <option value="12" ${calcData.bracket === 12 ? 'selected' : ''}>12% federal bracket</option>
+              <option value="22" ${calcData.bracket === 22 ? 'selected' : ''}>22% federal bracket</option>
+              <option value="24" ${calcData.bracket === 24 ? 'selected' : ''}>24% federal bracket</option>
+              <option value="32" ${calcData.bracket === 32 ? 'selected' : ''}>32% federal bracket</option>
+              <option value="37" ${calcData.bracket === 37 ? 'selected' : ''}>37% federal bracket</option>
             </select>
           </div>
         </div>
         <div class="result-display">
           <div style="margin-bottom: 2rem;">
             <div class="result-label">ANNUAL TAXES TO IRS</div>
-            <div class="result-value value-red">$\${annualTaxes.toLocaleString()}</div>
-            <p style="font-size: 0.8rem; margin-top: 0.25rem; opacity: 0.7;">\${calcData.bracket}% of every withdrawal</p>
+            <div class="result-value value-red">$${annualTaxes.toLocaleString()}</div>
+            <p style="font-size: 0.8rem; margin-top: 0.25rem; opacity: 0.7;">${calcData.bracket}% of every withdrawal</p>
           </div>
           <div style="margin-bottom: 2rem;">
             <div class="result-label">YOUR NET ANNUAL INCOME</div>
-            <div class="result-value value-green">$\${netIncome.toLocaleString()}</div>
+            <div class="result-value value-green">$${netIncome.toLocaleString()}</div>
           </div>
           <div style="padding: 1.5rem; background: rgba(244, 67, 54, 0.1); border: 1px solid rgba(244, 67, 54, 0.2); border-radius: 12px;">
             <div class="result-label">TOTAL TAXES OVER 25 YEARS</div>
-            <div class="result-value value-red" style="font-size: 2rem;">$\${totalTaxes.toLocaleString()}</div>
+            <div class="result-value value-red" style="font-size: 2rem;">$${totalTaxes.toLocaleString()}</div>
           </div>
         </div>
       </div>
-    \`
+    `;
   }
 
   if (activeCalcTab === 'income') {
     const gap = calcData.withdrawal * 0.4
-    return \`
+    return `
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
         <div>
           <h3 style="margin-bottom: 1.5rem;">The Retirement Gap</h3>
@@ -391,14 +391,14 @@ function renderActiveCalculator() {
             <label style="display: block; color: #8892B0; margin-bottom: 0.5rem; font-size: 0.9rem;">Desired Net Income</label>
             <div style="position: relative;">
                <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: hsl(var(--accent));">$</span>
-               <input type="number" value="\${calcData.withdrawal}" onchange="calcData.withdrawal = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem 1rem 1rem 2rem; border-radius: 8px; color: #fff;">
+               <input type="number" value="${calcData.withdrawal}" onchange="calcData.withdrawal = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem 1rem 1rem 2rem; border-radius: 8px; color: #fff;">
             </div>
           </div>
         </div>
         <div class="result-display">
            <div style="margin-bottom: 2rem;">
             <div class="result-label">ESTIMATED INCOME GAP</div>
-            <div class="result-value value-red">$\${gap.toLocaleString()}</div>
+            <div class="result-value value-red">$${gap.toLocaleString()}</div>
             <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">Annual wealth leak due to inflation/taxes</p>
           </div>
           <div style="padding: 1.5rem; background: rgba(2, 12, 27, 0.3); border: 1px solid hsl(var(--accent)); border-radius: 12px;">
@@ -408,11 +408,11 @@ function renderActiveCalculator() {
           </div>
         </div>
       </div>
-    \`
+    `;
   }
 
   if (activeCalcTab === 'side') {
-    return \`
+    return `
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
         <div style="padding: 2rem; background: rgba(244, 67, 54, 0.05); border: 1px solid rgba(244, 67, 54, 0.1); border-radius: 12px;">
           <h3 class="value-red" style="margin-bottom: 1.5rem;">Traditional 401(k)</h3>
@@ -433,27 +433,27 @@ function renderActiveCalculator() {
           </ul>
         </div>
       </div>
-    \`
+    `;
   }
 
   if (activeCalcTab === 'risk') {
-    return \`
+    return `
       <div style="text-align: center;">
         <h3 style="margin-bottom: 2rem;">Your Forensic Risk Assessment</h3>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
           <div style="padding: 2rem; background: rgba(244, 67, 54, 0.1); border: 1px solid rgba(244, 67, 54, 0.3); border-radius: 12px;">
             <div class="result-label">Standard Plan After -20% Crash</div>
-            <div class="result-value value-red">$\${(calcData.balance * 0.8).toLocaleString()}</div>
+            <div class="result-value value-red">$${(calcData.balance * 0.8).toLocaleString()}</div>
             <p style="font-size: 0.85rem; margin-top: 1rem; opacity: 0.8;">Market losses plus future tax liability.</p>
           </div>
           <div style="padding: 2rem; background: rgba(85, 166, 119, 0.1); border: 1px solid rgba(85, 166, 119, 0.3); border-radius: 12px;">
             <div class="result-label">LIFT Method Value After -20% Crash</div>
-            <div class="result-value value-green">$\${calcData.balance.toLocaleString()}</div>
+            <div class="result-value value-green">$${calcData.balance.toLocaleString()}</div>
             <p style="font-size: 0.85rem; margin-top: 1rem; opacity: 0.8;">Locked in at current high with 0% Floor.</p>
           </div>
         </div>
       </div>
-    \`
+    `;
   }
   
   return ''
