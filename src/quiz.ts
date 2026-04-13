@@ -7,48 +7,48 @@ export interface Question {
 export const questions: Question[] = [
   {
     id: 1,
-    text: "What percentage of your retirement savings is currently in tax-deferred accounts (401k, IRA, 403b)?",
+    text: "What percentage of your retirement savings is currently in tax-deferred accounts (401k, Traditional IRA, 403b)?",
     options: [
       { text: "Less than 25%", score: 1 },
-      { text: "25% - 50%", score: 2 },
-      { text: "50% - 75%", score: 3 },
-      { text: "More than 75% (The Tax Time Bomb)", score: 4 }
+      { text: "25% – 50%", score: 2 },
+      { text: "50% – 75%", score: 3 },
+      { text: "More than 75% — potentially all tax-deferred", score: 4 }
     ]
   },
   {
     id: 2,
-    text: "Are you aware that the 2017 tax cuts are scheduled to expire in 2026, potentially increasing your tax liability on every dollar you've saved?",
+    text: "Tax rates on traditional retirement withdrawals are determined by Congress and can change. How prepared are you if your tax rate in retirement is higher than it is today?",
     options: [
-      { text: "I was aware and have a plan", score: 1 },
-      { text: "I was aware but haven't acted", score: 3 },
-      { text: "I was not aware of the 2026 deadline", score: 4 }
+      { text: "Very prepared — I have a tax-diversified strategy", score: 1 },
+      { text: "Somewhat prepared — I've thought about it but haven't acted", score: 3 },
+      { text: "Not prepared — most of my savings are in pre-tax accounts", score: 4 }
     ]
   },
   {
     id: 3,
-    text: "In the event of a 20% market crash, how would your retirement plan protect you from 'Sequence of Returns' risk?",
+    text: "In the event of a significant market downturn early in retirement, how would your plan protect your income?",
     options: [
-      { text: "I have a 0% floor protection", score: 1 },
-      { text: "I would just wait for the market to recover", score: 3 },
-      { text: "I would have to delay retirement or return to work", score: 4 }
+      { text: "I have a guaranteed floor — my income doesn't drop with markets", score: 1 },
+      { text: "I would reduce spending and wait for markets to recover", score: 3 },
+      { text: "I'm not sure — I haven't stress-tested my plan for this scenario", score: 4 }
     ]
   },
   {
     id: 4,
-    text: "If you could spend the 'same dollar twice'—earning returns internally while using those funds for external investments—would that interest you?",
+    text: "Are you aware that IUL (Indexed Universal Life) policies can allow your money to earn market-linked growth while also being available as collateral for tax-free loans?",
     options: [
-      { text: "Yes, I want to maximize my capital's efficiency", score: 1 },
-      { text: "I'm interested but don't understand how it works", score: 2 },
-      { text: "No, I prefer traditional simple savings", score: 4 }
+      { text: "Yes, and I already use this strategy", score: 1 },
+      { text: "I've heard of it but don't fully understand how it works", score: 2 },
+      { text: "No, I wasn't aware of this — I'd like to learn more", score: 4 }
     ]
   },
   {
     id: 5,
     text: "What is your primary goal for your retirement assets?",
     options: [
-      { text: "Accumulating the largest possible account balance", score: 3 },
-      { text: "Maximizing predictable, net spendable cash flow", score: 1 },
-      { text: "Leaving a legacy for the next generation", score: 2 }
+      { text: "Accumulating the largest possible pre-tax account balance", score: 3 },
+      { text: "Maximizing predictable, net spendable after-tax cash flow", score: 1 },
+      { text: "Leaving a tax-efficient legacy for the next generation", score: 2 }
     ]
   }
 ];

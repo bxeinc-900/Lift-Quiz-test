@@ -424,9 +424,28 @@ h1, h2, h3, h4 {
   animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+.footer-disclaimer {
+  font-size: 0.75rem;
+  color: #495670;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.7;
+  text-align: left;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 1.5rem;
+}
+
+.footer-disclaimer p {
+  margin-bottom: 0.5rem;
+}
+
+.footer-disclaimer strong {
+  color: #8892B0;
+}
+
 @media (max-width: 768px) {
   .hero h1 {
-    font-size: 2.75rem;
+    font-size: 2.5rem;
   }
   .hero p {
     font-size: 1.1rem;
@@ -435,7 +454,7 @@ h1, h2, h3, h4 {
     padding: 1.5rem;
   }
   .quiz-question {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
   .calc-grid {
     grid-template-columns: 1fr;
@@ -443,6 +462,15 @@ h1, h2, h3, h4 {
   }
   .calc-card {
     padding: 1.5rem;
+  }
+  .calc-card > div > div[style*='grid-template-columns: 1fr 1fr'] {
+    grid-template-columns: 1fr !important;
+  }
+  .result-value {
+    font-size: 2rem;
+  }
+  .modal-content {
+    max-height: 95vh;
   }
 }
 

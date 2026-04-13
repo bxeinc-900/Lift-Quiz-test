@@ -19,7 +19,6 @@ let calcData = {
 // --- Global Fail-Safe Handlers ---
 // @ts-ignore
 window.startQuiz = () => {
-  console.log('Global window.startQuiz triggered')
   currentState = 'quiz'
   currentQuestionIndex = 0
   scores = []
@@ -29,18 +28,16 @@ window.startQuiz = () => {
 
 // @ts-ignore
 window.openBookingModal = () => {
-  console.log('Opening booking modal')
   const modal = document.querySelector('#booking-modal')
   if (modal) {
     modal.classList.add('active')
     const iframe = modal.querySelector('iframe') as HTMLIFrameElement
-    if (iframe) iframe.src = iframe.src // Refresh to ensure correct iframe load
+    if (iframe) iframe.src = iframe.src
   }
 }
 
 // @ts-ignore
 window.openMethodModal = () => {
-  console.log('Opening method modal')
   const modal = document.querySelector('#method-modal')
   if (modal) modal.classList.add('active')
 }
@@ -58,8 +55,6 @@ window.setActiveTab = (tab: 'tax' | 'income' | 'side' | 'risk') => {
 }
 
 // --- Initialization ---
-
-// Initialize modals ONCE on script load, outside the app div
 function initModals() {
   if (!document.querySelector('#booking-modal')) {
     const booking = document.createElement('div')
@@ -69,11 +64,18 @@ function initModals() {
       <div class="modal-content glass">
         <button class="modal-close" onclick="window.closeModal('booking-modal')">&times;</button>
         <div class="modal-header">
-          <h2 class="text-gold" style="font-size: 1.75rem; margin-bottom: 0.5rem;">Secure Your Strategy Session</h2>
-          <p style="color: #8892B0; font-size: 0.9rem;">Select an available time for your forensic analysis below.</p>
+          <h2 class="text-gold" style="font-size: 1.75rem; margin-bottom: 0.5rem;">Schedule a Strategy Session</h2>
+          <p style="color: #8892B0; font-size: 0.9rem;">Select an available time for your complimentary retirement analysis.</p>
         </div>
         <div class="modal-body">
           <iframe src="https://links.wealthvids.com/widget/booking/LwAMMZIaCleIBD0dAVLC" style="width: 100%; height: 700px; border:none; overflow: auto;" id="LwAMMZIaCleIBD0dAVLC_1776035780550"></iframe>
+        </div>
+        <div style="padding: 1rem 2rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+          <p style="font-size: 0.75rem; color: #495670; line-height: 1.5;">
+            This is a complimentary educational consultation. No products will be sold during this call. 
+            Results discussed are hypothetical and for illustrative purposes only. 
+            Past performance of any financial strategy does not guarantee future results.
+          </p>
         </div>
       </div>
     `
@@ -89,32 +91,35 @@ function initModals() {
       <div class="modal-content glass" style="max-width: 700px;">
         <button class="modal-close" onclick="window.closeModal('method-modal')">&times;</button>
         <div class="modal-header">
-          <div class="glass-pill" style="margin-bottom: 1rem;">STRATEGY BRIEFING</div>
+          <div class="glass-pill" style="margin-bottom: 1rem;">EDUCATIONAL OVERVIEW</div>
           <h2 class="text-gold" style="font-size: 2rem; margin-bottom: 0.5rem;">The LIFT Method</h2>
-          <p style="color: #8892B0; font-size: 1rem;">Surgically removing the 'Silent Partners' from your retirement.</p>
+          <p style="color: #8892B0; font-size: 1rem;">A framework for maximizing net spendable retirement income.</p>
         </div>
-        <div class="modal-body" style="min-height: auto; padding: 1rem 2rem 3rem;">
+        <div class="modal-body" style="min-height: auto; padding: 1rem 2rem 2rem;">
           <div style="display: flex; flex-direction: column; gap: 2rem;">
             <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.05);">
               <h3 style="color: #E6F1FF; font-size: 1.25rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;">
-                <span class="text-gold" style="font-size: 1.5rem;">01.</span> The 401(k) "Tax Time Bomb"
+                <span class="text-gold" style="font-size: 1.5rem;">01.</span> The Tax-Deferred Account Trade-Off
               </h3>
               <p style="color: #8892B0; line-height: 1.6; font-size: 0.95rem;">
-                The government and Wall Street have a "silent partner" in your 401(k). Every dollar you withdraw is taxed as ordinary income—and the IRS gets to decide their share after you've already done the work.
+                Traditional 401(k) and IRA accounts defer taxes—but do not eliminate them. Every withdrawal is taxed as ordinary income at whatever rate applies <em>at the time of withdrawal</em>. Since future tax rates are set by Congress and may change, your after-tax income in retirement may differ significantly from projections.
               </p>
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
                <div style="background: rgba(85, 166, 119, 0.05); border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(85, 166, 119, 0.1);">
-                  <h4 class="value-green" style="margin-bottom: 0.5rem;">The Multiplier</h4>
-                  <p style="font-size: 0.85rem; line-height: 1.5;">Using <strong>Leverage</strong> to multiply your capital's impact without taking on additional market risk.</p>
+                  <h4 class="value-green" style="margin-bottom: 0.5rem;">Leverage</h4>
+                  <p style="font-size: 0.85rem; line-height: 1.5;">Using properly structured IUL policies to allow capital to earn index-linked interest while simultaneously serving as collateral for tax-free policy loans.</p>
                </div>
                <div style="background: rgba(255, 226, 89, 0.05); border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(255, 226, 89, 0.1);">
-                  <h4 class="text-gold" style="margin-bottom: 0.5rem;">Net Spendable</h4>
-                  <p style="font-size: 0.85rem; line-height: 1.5;">Focusing entirely on <strong>Net Spendable Income</strong>—how much you keep after the IRS takes their cut.</p>
+                  <h4 class="text-gold" style="margin-bottom: 0.5rem;">Net Spendable Income</h4>
+                  <p style="font-size: 0.85rem; line-height: 1.5;">The focus is on the income you actually keep after all taxes and fees — not the gross account balance.</p>
                </div>
             </div>
+            <div style="background: rgba(2, 12, 27, 0.5); border-radius: 8px; padding: 1rem 1.5rem; border: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; color: #495670; line-height: 1.5;">
+              <strong style="color: #8892B0;">Important Disclosure:</strong> IUL policies involve insurance charges, fees, and costs that reduce their value. Policy loans, if not repaid, can reduce the death benefit and may cause the policy to lapse. This is a general educational overview and not a recommendation for any specific product. Results vary based on individual circumstances, health status, and policy terms. Always consult a licensed, qualified financial professional before making any financial decisions.
+            </div>
             <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem;">
-              <p style="font-size: 1.1rem; color: #E6F1FF; margin-bottom: 1.5rem;">Ready to see your forensic report?</p>
+              <p style="font-size: 1.1rem; color: #E6F1FF; margin-bottom: 1.5rem;">Take the assessment to see your personalized analysis.</p>
               <button class="btn btn-primary" onclick="window.startQuiz(); window.closeModal('method-modal');" style="width: 100%;">START THE ASSESSMENT</button>
             </div>
           </div>
@@ -127,19 +132,18 @@ function initModals() {
 }
 
 // --- Render Logic ---
-
 function render() {
   app.innerHTML = ''
-  
+
   const header = document.createElement('header')
   header.className = 'glass'
   header.style.cssText = 'position: fixed; width: 100%; top: 0; z-index: 100; padding: 1rem 0;'
   header.innerHTML = `
     <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
       <div style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.025em;" class="text-gold">
-        AFI GROUP <span style="color: #E6F1FF; font-weight: 400; font-size: 0.9rem; margin-left: 0.5rem; opacity: 0.6;">INVESTIGATIONS</span>
+        AFI GROUP <span style="color: #E6F1FF; font-weight: 400; font-size: 0.9rem; margin-left: 0.5rem; opacity: 0.6;">RETIREMENT STRATEGIES</span>
       </div>
-      <button class="btn btn-outline" onclick="window.openBookingModal()" style="padding: 0.5rem 1rem; font-size: 0.875rem;">STRATEGY SESSION</button>
+      <button class="btn btn-outline" onclick="window.openBookingModal()" style="padding: 0.5rem 1rem; font-size: 0.875rem;">SCHEDULE CONSULTATION</button>
     </div>
   `
   app.appendChild(header)
@@ -162,12 +166,17 @@ function render() {
   footer.style.cssText = 'padding: 4rem 0; border-top: 1px solid rgba(255,255,255,0.1); margin-top: auto; position: relative; z-index: 50;'
   footer.innerHTML = `
     <div class="container" style="text-align: center;">
-      <p style="color: #8892B0; font-size: 0.875rem; margin-bottom: 1rem;">
-        © 2026 The LIFT Method | wealthvids.com | AFI Group
+      <p style="color: #8892B0; font-size: 0.875rem; margin-bottom: 0.75rem;">
+        © 2026 The LIFT Method | <a href="https://wealthvids.com" target="_blank" style="color: #8892B0;">wealthvids.com</a> | AFI Group
       </p>
-      <div style="font-size: 0.75rem; color: #495670; max-width: 600px; margin: 0 auto; line-height: 1.6;">
-        Disclaimer: This is for educational purposes only. Financial decisions should be made with a certified professional. 
-        Taxes and market risks are subject to individual circumstances. Indexed Universal Life policies involve fees and costs.
+      <p style="font-size: 0.8rem; color: #8892B0; margin-bottom: 1.5rem;">
+        <a href="/privacy-policy" target="_blank" style="color: #64FFDA; text-decoration: none;">Privacy Policy</a>
+      </p>
+      <div class="footer-disclaimer">
+        <p><strong>Educational Content Disclaimer:</strong> The information on this website is for educational and informational purposes only and does not constitute financial, tax, legal, or investment advice. Results shown in calculators are hypothetical illustrations only and do not represent actual past or future performance of any financial product or strategy. Individual results will vary based on many factors including age, health, tax situation, income, and market conditions.</p>
+        <p style="margin-top: 0.75rem;"><strong>IUL Disclosure:</strong> Indexed Universal Life (IUL) insurance is a life insurance product, not a securities or investment product. IUL policies include insurance charges and fees that reduce cash value accumulation. Policy loans reduce the death benefit and cash value. If a policy lapses with an outstanding loan, adverse tax consequences may result. Not all individuals will qualify for coverage. Always consult with a licensed insurance professional and independent tax advisor.</p>
+        <p style="margin-top: 0.75rem;"><strong>Not Affiliated with Facebook:</strong> This site is not a part of the Facebook website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of FACEBOOK, Inc.</p>
+        <p style="margin-top: 0.75rem;"><strong>No Guarantee of Results:</strong> Any income or return projections are illustrative only. The LIFT Method and AFI Group do not guarantee any specific financial outcome. Consult a qualified, licensed financial advisor before making any financial decisions.</p>
       </div>
     </div>
   `
@@ -178,18 +187,21 @@ function renderHero() {
   const section = document.createElement('section')
   section.className = 'hero container animate-fade-in'
   section.style.position = 'relative'
-  section.style.zIndex = '100' // Force above potentially invisible overlays
+  section.style.zIndex = '100'
   section.innerHTML = `
-    <div class="glass-pill">URGENT INVESTIGATION: 2026 TAX SUNSET</div>
-    <h1>Is Your Retirement Plan a <br/> <span class="text-gold">Tax Time Bomb?</span></h1>
+    <div class="glass-pill">RETIREMENT RISK ANALYSIS</div>
+    <h1>Is Your Retirement Plan <br/> <span class="text-gold">Maximizing What You Keep?</span></h1>
     <p>
-      The government and Wall Street have a "silent partner" in your 401(k). 
-      Discover how the LIFT Method surgically removes market and tax risk to protect your net spendable income.
+      Most retirement accounts defer taxes — they don't eliminate them. 
+      Discover how the LIFT Method focuses on maximizing your net spendable income in retirement.
     </p>
-    <div style="display: flex; gap: 1rem; justify-content: center; position: relative; z-index: 101;">
-      <button id="start-quiz-btn" class="btn btn-primary" onclick="window.startQuiz()" style="cursor: pointer; position: relative; z-index: 102;">START ASSESSMENT</button>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 101;">
+      <button id="start-quiz-btn" class="btn btn-primary" onclick="window.startQuiz()" style="cursor: pointer; position: relative; z-index: 102;">START FREE ASSESSMENT</button>
       <button id="learn-method-btn" class="btn btn-outline" onclick="window.openMethodModal()" style="cursor: pointer; position: relative; z-index: 102;">LEARN THE METHOD</button>
     </div>
+    <p style="font-size: 0.8rem; color: #495670; margin-top: 2rem;">
+      For educational purposes only. This assessment does not constitute financial advice.
+    </p>
   `
   return section
 }
@@ -201,6 +213,10 @@ function renderQuiz() {
   section.className = 'container animate-fade-in'
   section.innerHTML = `
     <div class="quiz-container glass">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <span style="font-size: 0.85rem; color: #8892B0;">Question ${currentQuestionIndex + 1} of ${questions.length}</span>
+        <span style="font-size: 0.85rem; color: #64FFDA;">Educational Assessment</span>
+      </div>
       <div class="quiz-progress">
         <div class="quiz-progress-bar" style="width: ${progress}%"></div>
       </div>
@@ -232,15 +248,23 @@ function renderResults() {
   const exposure = calculateExposure(scores)
   const section = document.createElement('section')
   section.className = 'container animate-fade-in'
+
+  // Determine exposure color for visual indicator
+  const exposureColor = exposure.includes('Critical') ? '#F44336' : exposure.includes('Moderate') ? '#FF9800' : '#4CAF50'
+
   section.innerHTML = `
     <div class="results-header">
-      <div class="glass-pill" style="border-color: #F44336; color: #F44336;">PRIVATE INVESTIGATION REPORT</div>
-      <h1 style="font-size: 3.5rem;">Analysis Status: <span class="text-gold">${exposure}</span></h1>
+      <div class="glass-pill" style="border-color: ${exposureColor}; color: ${exposureColor};">RETIREMENT ANALYSIS RESULTS</div>
+      <h1 style="font-size: 3.5rem;">Risk Profile: <span style="color: ${exposureColor};">${exposure}</span></h1>
       <p style="margin-top: 1rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-        Our investigation shows significant vulnerabilities in your current retirement architecture. 
-        Watch the briefing and use the personal calculators below to see the impact.
+        Based on your responses, here is your personalized retirement risk analysis. 
+        Watch the overview video and use the calculators below to explore potential scenarios.
+      </p>
+      <p style="font-size: 0.8rem; color: #495670; margin-top: 1rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+        <em>Results are based on your self-reported answers and are for illustrative and educational purposes only. This is not a formal financial assessment. Consult a licensed advisor for personalized guidance.</em>
       </p>
     </div>
+
     <div class="video-container">
       <div class="wistia_embed wistia_async_23c4x4wrb1 videoFoam=true" style="height:100%;position:absolute;top:0;left:0;width:100%">
         <div class="wistia_swatch" style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;">
@@ -248,39 +272,57 @@ function renderResults() {
         </div>
       </div>
     </div>
+
     <section class="calculator-section">
       <div style="text-align: center; margin-bottom: 3rem;">
         <div style="height: 2px; width: 60px; background: hsl(var(--accent)); margin: 0 auto 1.5rem;"></div>
-        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Your Personal Retirement Calculators</h2>
-        <p style="color: #8892B0;">Enter your numbers. See the real impact.</p>
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Illustrative Retirement Calculators</h2>
+        <p style="color: #8892B0;">Enter your numbers to explore hypothetical scenarios. For illustrative purposes only.</p>
       </div>
+
       <div class="calc-tabs">
-        <button class="calc-tab ${activeCalcTab === 'tax' ? 'active' : ''}" onclick="window.setActiveTab('tax')">Tax exposure</button>
-        <button class="calc-tab ${activeCalcTab === 'income' ? 'active' : ''}" onclick="window.setActiveTab('income')">Income gap</button>
-        <button class="calc-tab ${activeCalcTab === 'side' ? 'active' : ''}" onclick="window.setActiveTab('side')">Side-by-side</button>
-        <button class="calc-tab ${activeCalcTab === 'risk' ? 'active' : ''}" onclick="window.setActiveTab('risk')">Risk score</button>
+        <button class="calc-tab ${activeCalcTab === 'tax' ? 'active' : ''}" onclick="window.setActiveTab('tax')">Tax Exposure</button>
+        <button class="calc-tab ${activeCalcTab === 'income' ? 'active' : ''}" onclick="window.setActiveTab('income')">Income Gap</button>
+        <button class="calc-tab ${activeCalcTab === 'side' ? 'active' : ''}" onclick="window.setActiveTab('side')">Side-by-Side</button>
+        <button class="calc-tab ${activeCalcTab === 'risk' ? 'active' : ''}" onclick="window.setActiveTab('risk')">Risk Scenario</button>
       </div>
+
       <div class="calc-card glass">
         ${renderActiveCalculator()}
       </div>
+      <p style="font-size: 0.75rem; color: #495670; text-align: center; margin-top: 1.5rem; line-height: 1.5;">
+        ⚠️ Calculator results are hypothetical illustrations only. They assume constant tax rates and do not account for investment fees, inflation, state taxes, required minimum distributions, or other factors that affect actual retirement income. Past performance does not guarantee future results.
+      </p>
     </section>
-    <div style="text-align: center; padding: 6rem 0;">
-      <div class="cta-banner glass animate-fade-in" style="margin-top: 4rem; padding: 4rem 2rem; border: 1px solid rgba(255, 226, 89, 0.2); background: radial-gradient(circle at top right, rgba(255, 226, 89, 0.05), transparent);">
+
+    <div style="padding: 4rem 0;">
+      <div class="cta-banner glass" style="padding: 4rem 2rem; border: 1px solid rgba(255, 226, 89, 0.2); background: radial-gradient(circle at top right, rgba(255, 226, 89, 0.05), transparent);">
         <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-          <div class="glass-pill" style="border-color: #F44336; color: #F44336; margin-bottom: 2rem; letter-spacing: 2px;">FINAL CASE SUMMARY: URGENT INTERVENTION</div>
-          <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; line-height: 1.2;">Intercept The <span class="text-gold">IRS Partnership</span> Before It's Too Late.</h2>
+          <div class="glass-pill" style="margin-bottom: 2rem;">NEXT STEP: PERSONALIZED ANALYSIS</div>
+          <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; line-height: 1.2;">See How the LIFT Method <span class="text-gold">Applies to Your Situation</span></h2>
+
           <div style="background: rgba(2, 12, 27, 0.6); border-radius: 12px; padding: 2rem; margin: 2.5rem 0; border: 1px solid rgba(255, 255, 255, 0.05); text-align: left;">
             <p style="color: #CCD6F6; font-size: 1.1rem; line-height: 1.6; margin-bottom: 1.5rem;">
-              The calculations are undeniable. Based on your inputs, the <strong>2026 Tax Sunset</strong> is not a theoretical risk—it is a mathematical certainty that will surgically reduce your net spendable income.
+              Based on your assessment, there may be meaningful opportunities to improve your retirement income strategy. A complimentary strategy session will explore your specific situation in detail and identify any areas where your current approach may be leaving money on the table.
             </p>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
-              <div><span style="display: block; font-size: 0.75rem; color: #8892B0; text-transform: uppercase;">Case Status</span><span class="value-red" style="font-weight: 700;">Critical Exposure</span></div>
-              <div><span style="display: block; font-size: 0.75rem; color: #8892B0; text-transform: uppercase;">Analysis Quality</span><span class="value-green" style="font-weight: 700;">Forensic Confirmed</span></div>
-              <div><span style="display: block; font-size: 0.75rem; color: #8892B0; text-transform: uppercase;">Current Capacity</span><span class="text-gold" style="font-weight: 700;">Only 2 Slots Left</span></div>
+              <div>
+                <span style="display: block; font-size: 0.75rem; color: #8892B0; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem;">Session Type</span>
+                <span class="value-green" style="font-weight: 700;">Complimentary</span>
+              </div>
+              <div>
+                <span style="display: block; font-size: 0.75rem; color: #8892B0; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem;">Duration</span>
+                <span style="color: #E6F1FF; font-weight: 700;">30–45 Minutes</span>
+              </div>
+              <div>
+                <span style="display: block; font-size: 0.75rem; color: #8892B0; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem;">Commitment</span>
+                <span class="text-gold" style="font-weight: 700;">Zero Obligation</span>
+              </div>
             </div>
           </div>
-          <button class="btn btn-primary" onclick="window.openBookingModal()" style="padding: 1.5rem 4rem; font-size: 1.25rem;">SECURE YOUR CASE STRATEGY CALL</button>
-          <p style="margin-top: 1.5rem; color: #F44336; font-size: 0.9rem; font-weight: 600;">⚠️ WARNING: This window for intervention will permanently close as we approach the 2026 Sunset.</p>
+
+          <button class="btn btn-primary" onclick="window.openBookingModal()" style="padding: 1.5rem 4rem; font-size: 1.2rem;">SCHEDULE YOUR COMPLIMENTARY CALL</button>
+          <p style="margin-top: 1.5rem; color: #8892B0; font-size: 0.85rem;">No products will be sold. This is a complimentary educational consultation only.</p>
         </div>
       </div>
     </div>
@@ -290,110 +332,156 @@ function renderResults() {
 
 function renderActiveCalculator() {
   if (activeCalcTab === 'tax') {
-    const annualTaxes = calcData.balance * (calcData.bracket / 100)
-    const netIncome = calcData.withdrawal - (calcData.withdrawal * (calcData.bracket / 100))
-    const totalTaxes = annualTaxes * 25
+    // Corrected: tax is on the withdrawal amount, not the total balance
+    const annualTaxes = calcData.withdrawal * (calcData.bracket / 100)
+    const netIncome = calcData.withdrawal - annualTaxes
+    const totalTaxes25yr = annualTaxes * 25
+
     return `
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;">
         <div>
+          <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Your Inputs</h3>
           <div style="margin-bottom: 2rem;">
             <label style="display: block; color: #8892B0; margin-bottom: 0.5rem; font-size: 0.9rem;">Current retirement balance</label>
             <div style="position: relative;">
               <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: hsl(var(--accent));">$</span>
-              <input type="number" value="${calcData.balance}" onchange="calcData.balance = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem 1rem 1rem 2rem; border-radius: 8px; color: #fff;">
+              <input type="number" value="${calcData.balance}" onchange="calcData.balance = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem 1rem 1rem 2rem; border-radius: 8px; color: #fff; font-size: 1rem;">
             </div>
           </div>
           <div style="margin-bottom: 2rem;">
-            <label style="display: block; color: #8892B0; margin-bottom: 0.5rem; font-size: 0.9rem;">Annual withdrawal needed</label>
+            <label style="display: block; color: #8892B0; margin-bottom: 0.5rem; font-size: 0.9rem;">Annual withdrawal amount</label>
             <div style="position: relative;">
               <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: hsl(var(--accent));">$</span>
-              <input type="number" value="${calcData.withdrawal}" onchange="calcData.withdrawal = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem 1rem 1rem 2rem; border-radius: 8px; color: #fff;">
+              <input type="number" value="${calcData.withdrawal}" onchange="calcData.withdrawal = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem 1rem 1rem 2rem; border-radius: 8px; color: #fff; font-size: 1rem;">
             </div>
           </div>
-          <div>
-            <label style="display: block; color: #8892B0; margin-bottom: 0.5rem; font-size: 0.9rem;">Your tax bracket in retirement</label>
-            <select onchange="calcData.bracket = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; color: #fff;">
-              <option value="12" ${calcData.bracket === 12 ? 'selected' : ''}>12% federal bracket</option>
-              <option value="22" ${calcData.bracket === 22 ? 'selected' : ''}>22% federal bracket</option>
-              <option value="24" ${calcData.bracket === 24 ? 'selected' : ''}>24% federal bracket</option>
-              <option value="32" ${calcData.bracket === 32 ? 'selected' : ''}>32% federal bracket</option>
-              <option value="37" ${calcData.bracket === 37 ? 'selected' : ''}>37% federal bracket</option>
+          <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; color: #8892B0; margin-bottom: 0.5rem; font-size: 0.9rem;">Assumed tax bracket in retirement</label>
+            <select onchange="calcData.bracket = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; color: #fff; font-size: 1rem;">
+              <option value="12" ${calcData.bracket === 12 ? 'selected' : ''}>12% (estimated)</option>
+              <option value="22" ${calcData.bracket === 22 ? 'selected' : ''}>22% (estimated)</option>
+              <option value="24" ${calcData.bracket === 24 ? 'selected' : ''}>24% (estimated)</option>
+              <option value="32" ${calcData.bracket === 32 ? 'selected' : ''}>32% (estimated)</option>
+              <option value="37" ${calcData.bracket === 37 ? 'selected' : ''}>37% (estimated)</option>
             </select>
           </div>
+          <p style="font-size: 0.75rem; color: #495670; line-height: 1.4;">Tax rates are set by Congress and may change. Current brackets are not guaranteed to remain the same in future years. State income taxes are not included in this illustration.</p>
         </div>
         <div class="result-display">
-          <div style="margin-bottom: 2rem;">
-            <div class="result-label">ANNUAL TAXES TO IRS</div>
-            <div class="result-value value-red">${annualTaxes.toLocaleString()}</div>
-            <p style="font-size: 0.8rem; margin-top: 0.25rem; opacity: 0.7;">${calcData.bracket}% of every withdrawal</p>
+          <div style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(244, 67, 54, 0.08); border: 1px solid rgba(244, 67, 54, 0.15); border-radius: 12px;">
+            <div class="result-label">ESTIMATED ANNUAL TAX ON WITHDRAWALS</div>
+            <div class="result-value value-red">$${annualTaxes.toLocaleString()}</div>
+            <p style="font-size: 0.8rem; margin-top: 0.25rem; opacity: 0.7;">At ${calcData.bracket}% assumed rate on $${calcData.withdrawal.toLocaleString()} withdrawal</p>
           </div>
-          <div style="margin-bottom: 2rem;">
-            <div class="result-label">YOUR NET ANNUAL INCOME</div>
-            <div class="result-value value-green">${netIncome.toLocaleString()}</div>
+          <div style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(85, 166, 119, 0.08); border: 1px solid rgba(85, 166, 119, 0.15); border-radius: 12px;">
+            <div class="result-label">ESTIMATED NET ANNUAL INCOME</div>
+            <div class="result-value value-green">$${netIncome.toLocaleString()}</div>
+            <p style="font-size: 0.8rem; margin-top: 0.25rem; opacity: 0.7;">After estimated federal income tax</p>
           </div>
-          <div style="padding: 1.5rem; background: rgba(244, 67, 54, 0.1); border: 1px solid rgba(244, 67, 54, 0.2); border-radius: 12px;">
-            <div class="result-label">TOTAL TAXES OVER 25 YEARS</div>
-            <div class="result-value value-red" style="font-size: 2rem;">${totalTaxes.toLocaleString()}</div>
+          <div style="padding: 1.5rem; background: rgba(244, 67, 54, 0.05); border: 1px solid rgba(244, 67, 54, 0.1); border-radius: 12px;">
+            <div class="result-label">HYPOTHETICAL TOTAL TAX OVER 25 YEARS</div>
+            <div class="result-value value-red" style="font-size: 2rem;">$${totalTaxes25yr.toLocaleString()}</div>
+            <p style="font-size: 0.75rem; margin-top: 0.5rem; color: #495670;">Illustrative only. Assumes constant rate, no RMDs, no state tax.</p>
           </div>
         </div>
       </div>
     `
   }
+
   if (activeCalcTab === 'income') {
     const gap = calcData.withdrawal * 0.4
+    const inflationAdjustedNeed = calcData.withdrawal * 1.4
     return `
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;">
         <div>
-          <h3 style="margin-bottom: 1.5rem;">The Retirement Gap</h3>
-          <p style="color: #8892B0; margin-bottom: 2rem;">Inflation and rising taxes act as a "Wealth Leak". If your income doesn't adjust, your purchasing power will decline by an estimated 40% over 20 years.</p>
+          <h3 style="margin-bottom: 1rem; font-size: 1.25rem;">The Income Gap Illustration</h3>
+          <p style="color: #8892B0; margin-bottom: 2rem; font-size: 0.95rem; line-height: 1.6;">This hypothetical illustration shows how the combined effect of taxes and inflation can reduce your purchasing power over a 20-year retirement. The actual impact depends on many variables.</p>
           <div style="margin-bottom: 2rem;">
-            <label style="display: block; color: #8892B0; margin-bottom: 0.5rem; font-size: 0.9rem;">Desired Net Income</label>
+            <label style="display: block; color: #8892B0; margin-bottom: 0.5rem; font-size: 0.9rem;">Desired annual income today</label>
             <div style="position: relative;">
                <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: hsl(var(--accent));">$</span>
-               <input type="number" value="${calcData.withdrawal}" onchange="calcData.withdrawal = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem 1rem 1rem 2rem; border-radius: 8px; color: #fff;">
+               <input type="number" value="${calcData.withdrawal}" onchange="calcData.withdrawal = Number(this.value); render()" style="width: 100%; background: rgba(2, 12, 27, 0.5); border: 1px solid rgba(255,255,255,0.1); padding: 1rem 1rem 1rem 2rem; border-radius: 8px; color: #fff; font-size: 1rem;">
             </div>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 1rem; font-size: 0.8rem; color: #495670; line-height: 1.4;">
+            Assumes: 3% average annual inflation over 20 years, and estimated ${calcData.bracket}% income tax bracket. Adjust inputs above to model your scenario.
           </div>
         </div>
         <div class="result-display">
-           <div style="margin-bottom: 2rem;">
-            <div class="result-label">ESTIMATED INCOME GAP</div>
-            <div class="result-value value-red">${gap.toLocaleString()}</div>
+           <div style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(244, 67, 54, 0.08); border: 1px solid rgba(244, 67, 54, 0.15); border-radius: 12px;">
+            <div class="result-label">ESTIMATED ANNUAL PURCHASING POWER LOSS</div>
+            <div class="result-value value-red">$${gap.toLocaleString()}</div>
+            <p style="font-size: 0.75rem; margin-top: 0.5rem; color: #495670;">Hypothetical 40% erosion from taxes + inflation over 20 years</p>
           </div>
-          <div style="padding: 1.5rem; background: rgba(2, 12, 27, 0.3); border: 1px solid hsl(var(--accent)); border-radius: 12px;">
-            <div class="result-label text-gold">REQUIRED LIFT MULTIPLIER</div>
-            <div class="result-value">2.15x</div>
+          <div style="padding: 1.5rem; background: rgba(255, 226, 89, 0.05); border: 1px solid rgba(255, 226, 89, 0.15); border-radius: 12px;">
+            <div class="result-label text-gold">WHAT YOU'D NEED TO KEEP UP</div>
+            <div class="result-value">$${inflationAdjustedNeed.toLocaleString()}</div>
+            <p style="font-size: 0.75rem; margin-top: 0.5rem; color: #495670;">Hypothetical gross amount needed to net your target in year 20</p>
           </div>
         </div>
       </div>
     `
   }
+
   if (activeCalcTab === 'side') {
     return `
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-        <div style="padding: 2rem; background: rgba(244, 67, 54, 0.05); border: 1px solid rgba(244, 67, 54, 0.1); border-radius: 12px;">
-          <h3 class="value-red" style="margin-bottom: 1.5rem;">Traditional 401(k)</h3>
-          <ul style="list-style: none; color: #8892B0;"><li>❌ Full Tax Exposure</li><li>❌ Market Risk</li></ul>
+      <div>
+        <h3 style="text-align: center; margin-bottom: 2rem; font-size: 1.25rem;">Hypothetical Comparison: Traditional 401(k) vs. LIFT Strategy</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+          <div style="padding: 2rem; background: rgba(244, 67, 54, 0.05); border: 1px solid rgba(244, 67, 54, 0.1); border-radius: 12px;">
+            <h3 class="value-red" style="margin-bottom: 1.5rem;">Traditional 401(k) / IRA</h3>
+            <ul style="list-style: none; color: #8892B0; font-size: 0.95rem; line-height: 2;">
+              <li>⚠️ All withdrawals taxed as ordinary income</li>
+              <li>⚠️ Subject to Required Minimum Distributions (RMDs) at age 73+</li>
+              <li>⚠️ 100% exposed to market downturns</li>
+              <li>⚠️ Tax rate set by Congress — subject to change</li>
+              <li>⚠️ No death benefit</li>
+            </ul>
+          </div>
+          <div style="padding: 2rem; background: rgba(85, 166, 119, 0.05); border: 1px solid rgba(85, 166, 119, 0.2); border-radius: 12px; border-left: 4px solid hsl(var(--accent));">
+            <h3 class="value-green" style="margin-bottom: 1.5rem;">LIFT Strategy (IUL-Based)</h3>
+            <ul style="list-style: none; color: #ccd6f6; font-size: 0.95rem; line-height: 2;">
+              <li>✅ Policy loans can be tax-free (if structured properly)</li>
+              <li>✅ No RMD requirements</li>
+              <li>✅ Indexed growth with 0% floor on downturns*</li>
+              <li>✅ Death benefit provides legacy protection</li>
+              <li>✅ No contribution limits after funding phase</li>
+            </ul>
+          </div>
         </div>
-        <div style="padding: 2rem; background: rgba(85, 166, 119, 0.05); border: 1px solid rgba(85, 166, 119, 0.2); border-radius: 12px;">
-          <h3 class="value-green" style="margin-bottom: 1.5rem;">The LIFT Method</h3>
-          <ul style="list-style: none; color: #ccd6f6;"><li>✅ 0% Tax Liability</li><li>✅ 0% Floor Protection</li></ul>
+        <div style="background: rgba(2, 12, 27, 0.5); border-radius: 8px; padding: 1rem 1.5rem; border: 1px solid rgba(255,255,255,0.05); font-size: 0.75rem; color: #495670; line-height: 1.5;">
+          *The 0% floor applies to the index-linked interest crediting rate, not to the total cash value which is reduced by ongoing policy charges and fees. Tax-free loans assume the policy remains in force and does not lapse. This comparison is a simplified illustration. Actual results depend on policy structure, carrier, health classification, and many other factors. This is not a recommendation to purchase any specific product.
         </div>
       </div>
     `
   }
+
   if (activeCalcTab === 'risk') {
+    const crashValue = calcData.balance * 0.8
+    const taxDragAnnual = calcData.withdrawal * (calcData.bracket / 100)
     return `
-      <div style="text-align: center;">
-        <h3 style="margin-bottom: 2rem;">Your Forensic Risk Assessment</h3>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-          <div style="padding: 2rem; background: rgba(244, 67, 54, 0.1); border-radius: 12px;">
-            <div class="result-label">Standard Plan After Crash</div>
-            <div class="result-value value-red">${(calcData.balance * 0.8).toLocaleString()}</div>
+      <div>
+        <h3 style="text-align: center; margin-bottom: 2rem; font-size: 1.25rem;">Hypothetical Sequence of Returns Risk Scenario</h3>
+        <p style="text-align: center; color: #8892B0; margin-bottom: 2rem; font-size: 0.9rem; line-height: 1.5;">This illustrates what a hypothetical 20% market decline at the start of retirement could mean for a traditional account vs. an IUL 0% floor strategy.</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+          <div style="padding: 2rem; background: rgba(244, 67, 54, 0.08); border: 1px solid rgba(244, 67, 54, 0.2); border-radius: 12px;">
+            <div class="result-label">TRADITIONAL ACCOUNT AFTER 20% CRASH</div>
+            <div class="result-value value-red" style="font-size: 2.5rem;">$${crashValue.toLocaleString()}</div>
+            <p style="font-size: 0.85rem; margin-top: 0.75rem; color: #8892B0;">Starting balance: $${calcData.balance.toLocaleString()}<br/>Loss: $${(calcData.balance - crashValue).toLocaleString()} — before taxes on withdrawals</p>
           </div>
-          <div style="padding: 2rem; background: rgba(85, 166, 119, 0.1); border-radius: 12px;">
-            <div class="result-label">LIFT Method After Crash</div>
-            <div class="result-value value-green">${calcData.balance.toLocaleString()}</div>
+          <div style="padding: 2rem; background: rgba(85, 166, 119, 0.08); border: 1px solid rgba(85, 166, 119, 0.2); border-radius: 12px;">
+            <div class="result-label">IUL WITH 0% FLOOR — AFTER SAME CRASH*</div>
+            <div class="result-value value-green" style="font-size: 2.5rem;">$${calcData.balance.toLocaleString()}</div>
+            <p style="font-size: 0.85rem; margin-top: 0.75rem; color: #8892B0;">Floor prevents loss of indexed credits<br/>Account charges still apply — see disclosure</p>
           </div>
+        </div>
+        <div style="padding: 1.5rem; background: rgba(255, 226, 89, 0.05); border: 1px solid rgba(255, 226, 89, 0.1); border-radius: 12px; margin-bottom: 1.5rem;">
+          <div class="result-label text-gold">ESTIMATED ANNUAL TAX DRAG ON WITHDRAWALS</div>
+          <div class="result-value" style="font-size: 2rem;">$${taxDragAnnual.toLocaleString()} / yr</div>
+          <p style="font-size: 0.75rem; margin-top: 0.5rem; color: #495670;">At assumed ${calcData.bracket}% bracket on $${calcData.withdrawal.toLocaleString()} annual withdrawal</p>
+        </div>
+        <div style="background: rgba(2, 12, 27, 0.5); border-radius: 8px; padding: 1rem 1.5rem; border: 1px solid rgba(255,255,255,0.05); font-size: 0.75rem; color: #495670; line-height: 1.5;">
+          *This scenario is hypothetical. The 0% floor in an IUL applies to the indexed interest crediting rate for a given contract year — it does not protect against ongoing policy charges, cost of insurance, or administrative fees which continue to be deducted from cash value regardless of index performance. Individual results will vary significantly. This is for illustrative purposes only and does not represent any specific product.
         </div>
       </div>
     `
