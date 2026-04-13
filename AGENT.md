@@ -283,6 +283,130 @@ Booking Modal
 
 ---
 
+## 13. LIFT Method Source Intelligence
+
+> **Source files:** `/LIFT Method/` folder — read these files directly for full context before making any copy or educational content changes.
+> - `LIFT Method Dossier.md` — comprehensive technical breakdown with case studies
+> - `LIFT Method Essay.md` — framework essay with real-world applications and risk metrics
+> - `Story_Extractor_Dossier.md` — narrative/persuasion framework (victim, crime scene, epiphany, offer)
+> - `Great Deception Treatment.md` — 5-episode documentary treatment; the core messaging narrative
+
+---
+
+### The LIFT Acronym (Four Pillars)
+LIFT = **L**everage · **I**ndexed Growth · **F**lexible · **T**ax-Advantaged Strategy
+
+---
+
+### Pillar 1 — Indexed Growth (0% Floor)
+- Cash value is **linked to a market index** (e.g., S&P 500) but **never directly invested** in it
+- **0% floor:** if the market drops, the credited return is simply zero — no principal loss
+- Upside is capped (e.g., a 10.5% cap on an S&P 500 index, or uncapped access via a PRISM index)
+- **Key math:** a 20% market loss requires a 25% gain just to break even; the 0% floor eliminates that recovery drag
+- A single strong year in the mid-teens can dramatically accelerate compounding because no ground was ever lost
+- **Index diversification:** to reduce long streaks of 0% return years, advisors split allocations (e.g., **50/50 S&P 500 / PRISM index**)
+  - Historically, back-testing showed this reduces zero-return years from **~5 down to 1** over a 30-year period
+
+---
+
+### Pillar 2 — Leverage (Capital Multiplier / The Spread)
+- Instead of withdrawing cash (which permanently interrupts compounding), policyholders take **loans against cash value**
+- The policy acts as collateral — the **full cash value stays in the account and continues to earn indexed returns** while borrowed capital is deployed elsewhere
+- This creates a **positive spread**: e.g., policy earns 7% internally while the loan rate is 5% → capital compounds in two places simultaneously
+- Safe leverage ratios: advisors target a **loan-to-cash ratio between 1:1 and 4:1** (never over-leveraged)
+- Safe income withdrawal rates: typically **8%–12% of net cash value** to avoid policy stress in flat-market years
+- If loan = 20× net cash value and a 0% return year hits + 5% loan interest: **100% wipeout of net cash value** (the danger of over-leverage)
+
+---
+
+### Pillar 3 — Flexible (Active Management)
+- The LIFT Method is **not** "set it and forget it" — it requires ongoing active management
+- Uses **custom Monte Carlo analysis built on 30 years of actual historical market data** to stress-test each policy
+- Traditional insurance illustrations are restricted by **AG49 regulations**, which limit how projected leverage can be shown — masking both upside potential and real sequence-of-returns risk
+- Advisors dynamically adjust: index allocations, loan types, withdrawal rates, and overall loan-to-cash ratio based on market conditions and client life changes
+
+---
+
+### Pillar 4 — Tax-Advantaged Strategy
+- Properly structured loans are classified as **debt, not taxable income** → cash flow is generally **tax-free**
+- Traditional 401(k)/IRA withdrawals are taxed as **ordinary income** at whatever rate applies at the time of withdrawal — set by Congress
+- Traditional withdrawals can trigger taxes on **up to 85% of Social Security benefits** ("Tax Torpedo")
+- The IRS acts as a **"silent partner"** in tax-deferred accounts — reserving the right to set its percentage later
+- U.S. national debt exceeds **$37 trillion**; historical precedent strongly suggests taxes will rise
+- OBBBA (2025) made 10%–37% federal brackets permanent but is projected to add trillions to the debt
+
+---
+
+### The Problem Framework (Why Traditional 401(k)s Fail)
+Source: *Great Deception Treatment*, *Story Extractor Dossier*, *LIFT Method Essay*
+
+| Issue | Factual Detail |
+|---|---|
+| Tax Time Bomb | Retirees lose 15%–45% of 401(k) balances to federal + state income taxes + penalties |
+| Tax Torpedo | Traditional withdrawals trigger taxes on up to 85% of Social Security benefits |
+| Fee Drain | A 1% annual management fee can drain **~1/3 of a nest egg** over 30 years |
+| Sequence of Returns Risk | A 20% loss early in retirement (e.g., 2008) forces selling depreciated assets to fund withdrawals — preventing full recovery |
+| National Debt | Exceeds $37 trillion; Social Security trust fund projected to run dry by **2033** (→ possible 20% benefit cuts) |
+| 401(k) Origin | Created as a tax loophole; corporations shifted risk to workers while financial institutions collect fees |
+| The Illusion of Wealth | A large statement balance ≠ spendable income — 30–50% may belong to the government and Wall Street |
+
+---
+
+### Real-World Case Studies (from Dossier)
+Use these only for educational framing in advisor scripts and presentations, **not** in public-facing funnel copy without proper compliance review.
+
+**Case 1 — The Mobley Case (Upgrading Inefficient Leverage)**
+- Policy: Penn Mutual, $660K gross cash value, $461,880 loan, net cash value $198K
+- Old policy: 7.75% cap, 2% floor, ~5.7% historical avg, wash loan at 4%/4%
+- Solution: 1035 exchange to Minnesota Life; 5% loan rate, uncapped PRISM index + S&P at 10.5% cap
+- Result: Annual illustrated income jumped from **$8,000/yr → $48,000/yr**; Monte Carlo showed potential up to **$224,000/yr**
+
+**Case 2 — Anthony's Case (Mitigating 0% Floor Risk)**
+- Transferred $1.4M into a policy; hit a sequence of flat months; 5.5% premium fee meant he hadn't recovered principal after 2–3 years
+- Wanted to surrender but faced a **$400,000 taxable gain**
+- Solution: Shifted to 50/50 PRISM/S&P allocation; historical back-testing showed 0% return years dropped from ~5 to 1 over 30 years
+- Also took a $500K–$700K loan to reinvest externally and capture the spread
+
+**Case 3 — Dave Baker (Danger of Variable Risk)**
+- Commissioner of the Arena Football League; retired 2007 using Variable Universal Life (VUL)
+- VUL policies are directly exposed to market losses — no 0% floor
+- The 2008 crash decimated his portfolio; forced to abandon retirement and return to work as President of the NFL Hall of Fame
+- Demonstrates why the LIFT Method strictly uses **indexed** (not variable) growth
+
+**Case 4 — Steve's Real Estate Strategy**
+- Uses his own LIFT policy as a **"private bank"** — borrows against cash value to purchase income-producing real estate
+- Real estate yields exceed the 5% loan rate → the spread compounds
+- Excess cash is funneled back into the policy to repay loans → continuous tax-advantaged cycle
+
+---
+
+### Core Messaging Framework (for Copy & Quiz)
+| Concept | User-Facing Language (Compliant) |
+|---|---|
+| Indexed Growth | "Market-linked growth with a 0% floor on index credits" |
+| Leverage / Loans | "Tax-free loans against properly structured products" or "accessing capital without interrupting growth" |
+| Tax-Free Income | "Generally tax-free cash flow from properly structured loan strategies" (always add asterisk + disclosure) |
+| Net Spendable Income | "The income you actually keep after all taxes and fees" |
+| Active Management | "Custom stress-tested strategy built on 30 years of historical data" |
+| The Spread | "Compounding internally while deploying capital externally" |
+| Don't say | "IUL", "Indexed Universal Life", "life insurance" in prominent UI copy |
+| Do say | "Properly structured financial product(s)", "properly structured strategy" |
+
+---
+
+### Key Statistics for Educational Copy
+- 401(k) tax drag on withdrawals: **15%–45%** of balance (federal + state + penalties)
+- Fee impact: **1% fee over 30 years ≈ 1/3 of nest egg** eroded
+- Tax Torpedo trigger: 401(k)/IRA withdrawals can tax up to **85% of Social Security benefits**
+- 0% floor math: a **20% loss** requires a **25% gain** just to break even
+- Index diversification: **50/50 blend** historically cuts 0% return years from ~5 to ~1 over 30 years
+- Safe income range: **8%–12% of net cash value** per year
+- Safe leverage: **1:1 to 4:1** loan-to-net-cash-value ratio
+- National debt: **>$37 trillion**; Social Security trust fund at risk by **2033**
+- OBBBA (2025): Made current tax brackets permanent (10%–37%) but adds to national debt
+
+---
+
 ## 12. Development Guidelines for AI Agents
 
 When working on this project, follow these rules:
